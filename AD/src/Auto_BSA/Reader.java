@@ -34,21 +34,41 @@ public class Reader {
 		
 	}
 
-	public static String[] Analyzer(String[] arstr){
+	public static String[] Analyzer(String[] arstr) {
 		//int BracketsOpen = 0, BracketsClosed = 0;
 		LinkedList<String> crutch = new LinkedList<String>();
 		for (int i = 0; i < arstr.length; i++) {
-			if(arstr[i].contains("for")){
-				crutch.add("cycle opening " + arstr[i]);
-			}else if(arstr[i].contains(";")){
-				crutch.add("block element " + arstr[i]);
-			}else if(arstr[i].contains("if")){
-				crutch.add("if element " + arstr[i]);
-			}
+		 		  
 		}
 		String[] ret = crutch.toArray(new String[0]);
-		return ret;	 
+		return ret;	
+	}
+	private static String[] isComment(String[] line) {
+		for (int i = 0;i<line.length;i++) {
+				if (line[i].contains("//")) {
+					//if(line.subSequence(0, line.indexOf("//")).length()!=0)
+					line[i] = (String) line[i].subSequence(0, line[i].indexOf("//"));		
+				}
+			    if (line[i].contains("/*")) {
+			    	if (line[i].contains("*/")) {
+			    		line[i] = (String) line[i].subSequence(0, line[i].indexOf("/*")) + (String) line[i].subSequence( line[i].indexOf("/*")+1, line[i].length());	
+			    	} else {
+				    	line[i] = (String) line[i].subSequence(0, line[i].indexOf("/*"));
+				    	for (int j = i+1;j<line.length;j++) {
+				    		if (!line[j].contains("*/")) {
+				    			line[j]="";
+				    		} else {
+				    			line[j]=(String)line[j].subSequence(line[j].indexOf("*/")+1, line[j].length());
+				    			break;
+				    		}
+				    	}
+			    	}
+			    }
+	
+		}
+		return line;
 	}
 	} 
+
 
 
