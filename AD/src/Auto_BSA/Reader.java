@@ -5,60 +5,49 @@ import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-
 public class Reader {
-	//путь к файлу
+	
 	private static String Path;
-	//конструктор
+	
 	public Reader(String P) throws FileNotFoundException{
 		Path = P;
 	}
 
-	// enum type  {forcycle,whilecycle,dowhilecycle,Block,InOut,IfRhombus};
-	public static String[] read() throws FileNotFoundException {
+	//enum type  {forcycle,whilecycle,dowhilecycle,Block,InOut,IfRhombus};
+
+    //Reads file and reterns String array interpretation of it.	
+    public static String[] read() throws FileNotFoundException {
 		Scanner fin = new Scanner(new FileReader(Path));
 		String line;
 		LinkedList<String> crutch = new LinkedList<String>();
 		while(fin.hasNextLine()){
 			line = fin.nextLine();
-			if(!(line.equals(""))) {
-				if(line.length()>1){
-					if(((line.charAt(0)!='/')&&(line.charAt(1)!='/'))&&(line.charAt(0)!='#')){
-						crutch.add(line);
-					}
-				}
+			if(line.length()>0){
+				crutch.add(line);
 			}
 		}
-		String[] ret = crutch.toArray(new String[0]);
-		return Analyzer(ret);
 		
+		String[] ret = crutch.toArray(new String[crutch.size()]);
+		return isComment(ret);	
 	}
-
-	public static String[] Analyzer(String[] arstr) {
-		//int BracketsOpen = 0, BracketsClosed = 0;
-		LinkedList<String> crutch = new LinkedList<String>();
-		for (int i = 0; i < arstr.length; i++) {
-		 		  
-		}
-		String[] ret = crutch.toArray(new String[0]);
-		return ret;	
-	}
-	private static String[] isComment(String[] line) {
-		for (int i = 0;i<line.length;i++) {
-				if (line[i].contains("//")) {
+   
+	//Deletes all comments from String array interpretation of file.
+	private static String[] isComment(String[] ret) {
+		for (int i = 0;i<ret.length;i++) {
+				if (ret[i].contains("//")) {
 					//if(line.subSequence(0, line.indexOf("//")).length()!=0)
-					line[i] = (String) line[i].subSequence(0, line[i].indexOf("//"));		
+					ret[i] = (String) ret[i].subSequence(0, ret[i].indexOf("//"));		
 				}
-			    if (line[i].contains("/*")) {
-			    	if (line[i].contains("*/")) {
-			    		line[i] = (String) line[i].subSequence(0, line[i].indexOf("/*")) + (String) line[i].subSequence( line[i].indexOf("/*")+1, line[i].length());	
+			    if (ret[i].contains("/*")) {
+			    	if (ret[i].contains("*/")) {
+			    		ret[i] = (String) ret[i].subSequence(0, ret[i].indexOf("/*")) + (String) ret[i].subSequence( ret[i].indexOf("*/")+2, ret[i].length());	
 			    	} else {
-				    	line[i] = (String) line[i].subSequence(0, line[i].indexOf("/*"));
-				    	for (int j = i+1;j<line.length;j++) {
-				    		if (!line[j].contains("*/")) {
-				    			line[j]="";
+				    	ret[i] = (String) ret[i].subSequence(0, ret[i].indexOf("/*"));
+				    	for (int j = i+1;j<ret.length;j++) {
+				    		if (!ret[j].contains("*/")) {
+				    			ret[j]="";
 				    		} else {
-				    			line[j]=(String)line[j].subSequence(line[j].indexOf("*/")+1, line[j].length());
+				    			ret[j]=(String)ret[j].subSequence(ret[j].indexOf("*/")+2, ret[j].length());
 				    			break;
 				    		}
 				    	}
@@ -66,9 +55,20 @@ public class Reader {
 			    }
 	
 		}
-		return line;
+		return ret;
 	}
-	} 
+	 
+//converts from string array to the one line
+	public String OneStringConverter(String[] ret){
+		StringBuilder line = new StringBuilder();
+		for (int i = 0; i < ret.length; i++) {
+			if(ret[i].length()>0){
+				line.append(ret[i] + '\n');
+			}
+		}
+		return line.toString();
+	}
+}
 
 
 

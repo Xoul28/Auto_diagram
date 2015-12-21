@@ -2,7 +2,7 @@ package Auto_BSA;
 
 import java.util.Scanner;
 
-public class Analyzer {
+public class test {
 	static int p = -1;
 	private static String[] isComment(String[] line) {
 		for (int i = 0;i<p;i++) {
@@ -19,7 +19,7 @@ public class Analyzer {
 				    		if (!line[j].contains("*/")) {
 				    			line[j]="";
 				    		} else {
-				    			line[j]=(String)line[j].subSequence(line[j].indexOf("*/")+1, line[j].length());
+				    			line[j]=(String)line[j].subSequence(line[j].indexOf("*/")+2, line[j].length());
 				    			break;
 				    		}
 				    	}
