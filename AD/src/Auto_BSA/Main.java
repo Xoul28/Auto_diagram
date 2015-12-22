@@ -17,7 +17,7 @@ public class Main {
 //		Interpreter icpp = new Interpreter(code.toString());
 //		icpp.analyze();
 //		scanner.close();
-       Reader red = new Reader("D:/Bullshit/Auto_diagram/AD/src/Auto_BSA/file.cpp");      
+       Reader red = new Reader("./AD/src/Auto_BSA/file.cpp");
        //reading file and removing comments
        String[] s = red.read();
        Interpreter icpp = new Interpreter(red.OneStringConverter(s));

@@ -18,6 +18,9 @@ public class Interpreter {
 		keywords.add("do");
 	}
 	
+	private static boolean isKeyword(String str) {
+		return keywords.contains(str);
+	}
 	
 	public Interpreter(String code) {
 		this.code = code;
@@ -33,14 +36,20 @@ public class Interpreter {
 		pos++;
 	}
 	
+	private boolean isEnd() {
+		return pos >= len - 1;
+	}
+	
 	public void analyze() {
-		StringBuilder buffer = new StringBuilder();
-		while (pos < len) {
+		// StringBuilder buffer = new StringBuilder();
+		while (!isEnd()) {
+			System.out.println(readStatement());
+			/*
 			char current = getCurrentChar();
 			buffer.append(current);
 			String str = buffer.toString();
 			// if ('buffer' is a c++ keyword)
-			if (keywords.contains(str)) {
+			if (isKeyword(str)) {
 				nextChar();
 				System.out.println(str);
 				if (str.equals("do")) {
@@ -54,8 +63,21 @@ public class Interpreter {
 			if (Character.isWhitespace(current)) {
 				buffer.setLength(0);
 			}
-			nextChar();
+			nextChar();//*/
 		}
+	}
+	
+	private String readBlock(String blockType) {
+		StringBuilder block = new StringBuilder();
+		block.append(blockType + '\n');
+		if (blockType.equals("do")) {
+			block.append("{\n" + readStatement() + "\n}\n");
+			block.append('(' + readCondition() + ")\n");
+		} else {
+			block.append('(' + readCondition() + ")\n");
+			block.append("{\n" + readStatement() + "\n}\n");
+		}
+		return block.toString();
 	}
 	
 	private String readCondition() {
@@ -84,29 +106,52 @@ public class Interpreter {
 	
 	private String readStatement() {
 		// skip space chars
-		while (Character.isWhitespace(getCurrentChar())) {
+		while (Character.isWhitespace(getCurrentChar()) && !isEnd()) {
 			nextChar();
 		}
+		
+		if (isEnd()) return "";
 		
 		char current = getCurrentChar();
 		StringBuilder statement = new StringBuilder();
 		
-		// if it is only 1 'expression;'
+		// if it is only 1 'expression;' or keyword
 		if (current != '{') {
-			while (current != ';') {
+			// try to read keyword-block
+			while (true) {
+				current = getCurrentChar();
+				if (Character.isWhitespace(current) || current == ';') {
+					break;
+				}
 				statement.append(current);
+				String blockType = statement.toString();
+				if (isKeyword(blockType)) {
+					nextChar();
+					return readBlock(blockType).trim();
+				}
 				nextChar();
+			}
+			// it is 'expression;'
+			while (current != ';') {
+				nextChar();
+				statement.append(current);
 				current = getCurrentChar();
 			}
-			return statement.toString().trim();
+			nextChar();
+			return statement.toString().trim() + ';';
 		}
 		
 		// if it is {expression1; ...}
 		statement.setLength(0);
-		nextChar();
+		nextChar(); // skip first '{'
 		int braces = 1;
 		while (braces != 0) {
 			current = getCurrentChar();
+			/*
+			while (Character.isWhitespace(current)) {
+				nextChar();
+				current = getCurrentChar();
+			}//*/
 			switch (current) {
 			case '}':
 				braces--;
@@ -118,7 +163,7 @@ public class Interpreter {
 			statement.append(current);
 			nextChar();
 		}
-		statement.deleteCharAt(statement.length() - 1);
+		statement.deleteCharAt(statement.length() - 1); // delete last '}'
 		return statement.toString().trim();
 	}
 	
