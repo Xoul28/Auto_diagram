@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Reader {
 	
-	private static String Path;
+	private String Path;
 	
 	public Reader(String P) throws FileNotFoundException{
 		Path = P;
@@ -16,7 +16,7 @@ public class Reader {
 	//enum type  {forcycle,whilecycle,dowhilecycle,Block,InOut,IfRhombus};
 
     //Reads file and reterns String array interpretation of it.	
-    public static String[] read() throws FileNotFoundException {
+    public String[] read() throws FileNotFoundException {
 		Scanner fin = new Scanner(new FileReader(Path));
 		String line;
 		LinkedList<String> crutch = new LinkedList<String>();

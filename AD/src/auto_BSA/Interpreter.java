@@ -36,6 +36,10 @@ public class Interpreter {
 		pos++;
 	}
 	
+	private char peekNextChar() {
+		return code.charAt(pos + 1);
+	}
+	
 	private boolean isEnd() {
 		return pos >= len - 1;
 	}
@@ -69,7 +73,7 @@ public class Interpreter {
 	
 	private String readBlock(String blockType) {
 		StringBuilder block = new StringBuilder();
-		block.append(blockType + '\n');
+		block.append("[" + blockType + "]\n");
 		if (blockType.equals("do")) {
 			block.append("{\n" + readStatement() + "\n}\n");
 			block.append('(' + readCondition() + ")\n");
@@ -125,7 +129,7 @@ public class Interpreter {
 				}
 				statement.append(current);
 				String blockType = statement.toString();
-				if (isKeyword(blockType)) {
+				if (isKeyword(blockType) && !Character.isLetter(peekNextChar())) {
 					nextChar();
 					return readBlock(blockType).trim();
 				}
@@ -147,6 +151,7 @@ public class Interpreter {
 		int braces = 1;
 		while (braces != 0) {
 			current = getCurrentChar();
+			// TODO обработка вложенных блоков
 			/*
 			while (Character.isWhitespace(current)) {
 				nextChar();
