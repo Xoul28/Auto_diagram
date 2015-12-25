@@ -1,4 +1,4 @@
-package Auto_BSA;
+package auto_BSA;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,9 +25,9 @@ public class DrawerSimple extends JFrame {
         cp.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5),
                 BorderFactory.createLineBorder(Color.black)));
         setContentPane(cp);
-        //cp.add(new Block("Слава лох"), BorderLayout.CENTER);
-        //cp.add(new Cycle("Слава лох"), BorderLayout.CENTER);
-        cp.add(new SelectorBlock("Слава лох"), BorderLayout.CENTER);
+        //cp.add(new Block("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ"), BorderLayout.CENTER);
+        //cp.add(new Cycle("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ"), BorderLayout.CENTER);
+        cp.add(new SelectorBlock("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ"), BorderLayout.CENTER);
         JButton btn = new JButton("Close");
         cp.setBackground(Color.white);
         setSize(500, 400);

@@ -1,4 +1,4 @@
-package Auto_BSA;
+package auto_BSA;
 
 import java.util.HashSet;
 import java.util.Set;

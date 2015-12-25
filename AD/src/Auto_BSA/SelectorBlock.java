@@ -1,4 +1,4 @@
-package Auto_BSA;
+package auto_BSA;
 
 import java.awt.Color;
 import java.awt.Graphics;
