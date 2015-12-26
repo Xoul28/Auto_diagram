@@ -211,6 +211,7 @@ public class Interpreter {
 	
 	private String readCompoundStatement() {
 		nextChar(); // skip first '{'
+		skipWhitespaces();
 		StringBuilder statement = new StringBuilder();
 		while (getCurrentChar() != '}') {
 			statement.append(readStatement());
