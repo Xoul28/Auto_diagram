@@ -40,14 +40,46 @@ public class Interpreter {
 		return code.charAt(pos + 1);
 	}
 	
+	private boolean peekElse() {
+		skipWhitespaces();
+		StringBuilder keyword = new StringBuilder();
+		int i = pos;
+		char current = getCurrentChar();
+		while (!isEnd() && i - pos < 4) {
+			keyword.append(current);
+			String blockType = keyword.toString();
+			// if it is keyword with no-letter char next to it
+			if (blockType.equals("else") && !Character.isLetter(code.charAt(i + 1))) {
+				return true;
+			}
+			i++;
+			current = code.charAt(i);
+		}
+		return false;
+	}
+	
+	private void skipElse() {
+		if (peekElse()) {
+			for (int i = 0; i < 4; i++) {
+				nextChar();
+			}
+		}
+	}
+	
 	private boolean isEnd() {
 		return pos >= len - 1;
+	}
+	
+	private void skipWhitespaces() {
+		while (Character.isWhitespace(getCurrentChar()) && !isEnd()) {
+			nextChar();
+		}
 	}
 	
 	public void analyze() {
 		// StringBuilder buffer = new StringBuilder();
 		while (!isEnd()) {
-			System.out.println(readStatement());
+			System.out.print(readStatement());
 			/*
 			char current = getCurrentChar();
 			buffer.append(current);
@@ -73,13 +105,20 @@ public class Interpreter {
 	
 	private String readBlock(String blockType) {
 		StringBuilder block = new StringBuilder();
-		block.append("[" + blockType + "]\n");
+		block.append("$" + blockType + "$ ");
 		if (blockType.equals("do")) {
-			block.append("{\n" + readStatement() + "\n}\n");
+			block.append("{\n" + readStatement() + "} ");
 			block.append('(' + readCondition() + ")\n");
 		} else {
-			block.append('(' + readCondition() + ")\n");
-			block.append("{\n" + readStatement() + "\n}\n");
+			block.append('(' + readCondition() + ") ");
+			block.append("{\n" + readStatement() + "}");
+			if (blockType.equals("if") && peekElse()) {
+				skipElse();
+				block.append(" $else$ ");
+				block.append("{\n" + readStatement() + "}\n");
+			} else {
+				block.append('\n');
+			}
 		}
 		return block.toString();
 	}
@@ -110,53 +149,51 @@ public class Interpreter {
 	
 	private String readStatement() {
 		// skip space chars
-		while (Character.isWhitespace(getCurrentChar()) && !isEnd()) {
-			nextChar();
-		}
+		skipWhitespaces();
 		
 		if (isEnd()) return "";
 		
 		char current = getCurrentChar();
-		StringBuilder statement = new StringBuilder();
 		
 		// if it is only 1 'expression;' or keyword
 		if (current != '{') {
+			StringBuilder statement = new StringBuilder();
 			// try to read keyword-block
-			while (true) {
-				current = getCurrentChar();
-				if (Character.isWhitespace(current) || current == ';') {
-					break;
-				}
+			while (Character.isLetter(current)) {
 				statement.append(current);
 				String blockType = statement.toString();
+				// if it is keyword with no-letter char next to it
 				if (isKeyword(blockType) && !Character.isLetter(peekNextChar())) {
-					nextChar();
-					return readBlock(blockType).trim();
+					nextChar(); // skip last keyword's letter
+					return readBlock(blockType);
 				}
 				nextChar();
+				current = getCurrentChar();
 			}
 			// it is 'expression;'
 			while (current != ';') {
-				nextChar();
 				statement.append(current);
+				nextChar();
 				current = getCurrentChar();
 			}
-			nextChar();
-			return statement.toString().trim() + ';';
+			nextChar(); // skip ';'
+			return statement.toString().trim() + ";\n";
 		}
 		
 		// if it is {expression1; ...}
+		return readCompoundStatement();
+		/*
 		statement.setLength(0);
-		nextChar(); // skip first '{'
+		
 		int braces = 1;
 		while (braces != 0) {
 			current = getCurrentChar();
 			// TODO обработка вложенных блоков
 			/*
-			while (Character.isWhitespace(current)) {
-				nextChar();
-				current = getCurrentChar();
-			}//*/
+//			while (Character.isWhitespace(current)) {
+//				nextChar();
+//				current = getCurrentChar();
+//			}
 			switch (current) {
 			case '}':
 				braces--;
@@ -169,7 +206,18 @@ public class Interpreter {
 			nextChar();
 		}
 		statement.deleteCharAt(statement.length() - 1); // delete last '}'
-		return statement.toString().trim();
+		return statement.toString().trim();*/
+	}
+	
+	private String readCompoundStatement() {
+		nextChar(); // skip first '{'
+		StringBuilder statement = new StringBuilder();
+		while (getCurrentChar() != '}') {
+			statement.append(readStatement());
+			skipWhitespaces();
+		}
+		nextChar();
+		return statement.toString();
 	}
 	
 }
