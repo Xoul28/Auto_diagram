@@ -15,14 +15,21 @@ public class Component extends JPanel{
 	 @Override
 	    protected void paintComponent(Graphics g) {
 		 Graphics2D g2d = (Graphics2D)g;
-		 g2d.getRenderingHint(RenderingHints.KEY_RENDERING);
+		 g2d.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
 		 g2d.setColor(Color.black);
-		 Coords c = new Coords(getWidth()/2,getHeight()/2);
-	     ForCycle f = new ForCycle();
-	     for(int i = 0; i<10;i++){
-	     f.paint("ШТО ТО", c, g2d);
-	     c.setY(c.getY()+50+5);
-	     }
+		 Coords c = new Coords(getWidth()/2,50);
+		 Block b1[] = new Block [2];
+		 Block b[] = new Block[3];
+		 b1[0] = new Statement("Действие 1");
+		 b1[1] = new Statement("Действие 2");
+		 b[0] = new Statement("Действие 1");
+		 b[1] = new SelectorBlock(b1, "i>0");
+		 b[2] = new Statement("Действие 3");
+		 ForCycle f = new ForCycle(b, "i=1...4");
+		 Block b2[] = {f};
+		 Function fun = new Function(b2, "");
+	     fun.paint(c, g2d);
+	  
 	 }
 	
 }
