@@ -11,7 +11,7 @@ public class Statement extends Block{
 	 }
 
 	 @Override
-		public void paint(Coords Coord, Graphics2D g2d) {
+		public void paint(Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
 		 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		 g2d.setColor(Color.black);
 		 g2d.drawLine(Coord.getX()-50, Coord.getY()-25, Coord.getX()+50, Coord.getY()-25);
@@ -19,7 +19,7 @@ public class Statement extends Block{
 		 g2d.drawLine(Coord.getX()-50, Coord.getY()-25, Coord.getX()-50, Coord.getY()+25);
 		 g2d.drawLine(Coord.getX()+50, Coord.getY()-25, Coord.getX()+50, Coord.getY()+25);
 		 g2d.drawString(line, Coord.getX()-32, Coord.getY()+5);
+		 if(nextlinedraw)
 		 nextArrow(Coord, g2d);
-		 Coord.setY(Coord.getY()+50+10);
 	 }
 }

@@ -16,7 +16,7 @@ public class SelectorBlock extends FunBlock{
 		
 	}
 		@Override
-		public void paint( Coords Coord, Graphics2D g2d) {
+		public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
 			int lenh=35,lenv=10,lenhn=50,lenvn=25;
 		     //lefttopline
 			 g2d.drawLine(Coord.getX()-lenhn, Coord.getY(), Coord.getX(), Coord.getY()+lenvn);
@@ -28,10 +28,8 @@ public class SelectorBlock extends FunBlock{
 			 g2d.drawLine(Coord.getX(), Coord.getY()-lenvn, Coord.getX()-lenhn, Coord.getY());
 			 g2d.drawString(line, Coord.getX()-32, Coord.getY()+5);		
 			 nextArrow(Coord, g2d);
-			 Coord.setY(Coord.getY()+50+10);
-			 for(int i = 0;i<body.length;i++){
-			 body[i].paint(Coord,g2d);
-			 }
+			 Coord.setY(Coord.getY()+50+20);
+			 drawbody(Coord, g2d);
 			 
 		}
 		

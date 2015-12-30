@@ -8,16 +8,17 @@ public class Function extends FunBlock{
 		super(body, line);
 	}
 	@Override
-	public void paint( Coords Coord, Graphics2D g2d) {
+	public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
 	
 	g2d.drawOval(Coord.getX()-50, Coord.getY()-12, 100, 25);
 	g2d.drawString("Начало", Coord.getX()-32, Coord.getY()+5);
 	nextArrow(Coord, g2d);
 	Coord.setY(Coord.getY()+48);
 	 for(int i = 0;i<body.length;i++){
-		 body[i].paint(Coord,g2d);
+		 body[i].paint(Coord,g2d,true);
 		  
 	 }
+	 Coord.setY(Coord.getY()+50+20);
 	 Coord.setY(Coord.getY()-25+12);
 	 g2d.drawOval(Coord.getX()-50, Coord.getY()-12, 100, 25);
 	g2d.drawString("Конец", Coord.getX()-32, Coord.getY()+5);

@@ -10,8 +10,21 @@ public class FunBlock extends Block{
 	}
     Block body[];
 	@Override
-	public void paint( Coords Coord, Graphics2D g2d) {
+	public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
 			
+	}
+	public void drawbody(Coords Coord,Graphics2D g2d){
+		 for(int i = 0;i<body.length;i++){
+			 
+			 if(i!=(body.length-1)){
+			 body[i].paint(Coord,g2d,true); 
+			 Coord.setY(Coord.getY()+50+20);
+			 }else{
+			 body[i].paint(Coord,g2d,false);	 
+			 }
+			 
+		 }
+		 
 	}
 	
 

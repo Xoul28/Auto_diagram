@@ -30,4 +30,42 @@ public class Coords {
 		this.y = y;
 	}
 	
+	private int investedCol = 0;
+	private int Bias=10;
+
+	public void incInvestedCol(){
+		investedCol++;
+	}
+	
+	public void decInvestedCol(){
+		investedCol--;
+	}
+	
+	public int getInvestedCol(){
+		return investedCol;
+	}
+	
+	public void incBias(){
+		Bias+=10;
+	}
+
+	public int getBias(){
+		return Bias;
+	}
+	public void decBias(){
+		Bias=0;
+	}
+	
+	private int downB = 0;
+	public void incB(){
+		downB+=5;
+	}
+
+	public int getB(){
+		return downB;
+	}
+	public void decB(){
+		downB=0;
+	}
+	
 }
