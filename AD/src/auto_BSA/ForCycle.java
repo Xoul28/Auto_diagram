@@ -27,7 +27,7 @@ public class ForCycle extends FunBlock{
 		 //bottom
 		 g2d.drawLine(Coord.getX()-lenh, Coord.getY()+lenvn, Coord.getX()+lenh, Coord.getY()+lenvn);
 		
-		 g2d.drawString(line, Coord.getX()-32, Coord.getY()+5);
+		 drawCenteredString(g2d, line, Coord.getX(), Coord.getY());
 		 nextArrow(Coord, g2d);
 		 Coords retCoord = new Coords(Coord.getX()-lenhn,Coord.getY()+lenvn);
 		 Coord.setY(Coord.getY()+50+20);
