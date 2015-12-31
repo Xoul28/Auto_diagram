@@ -22,10 +22,10 @@ public class Component extends JPanel{
 		 Block b3[] = new Block [2];
 		 Block b[] = new Block[3];
 		 b1[0] = new Statement("Äåéñòâèå 1");
-		 b[2] = new Statement("Äåéñòâèå 2");
-		 b3[0] = new Statement("Äåéñòâèå 3");
+		 b[2] = new Statement("Äåéñòâèå 2\nÄåéñòâèå 3\nÄåéñòâèå 4\nÄåéñòâèå 5");
+		 b3[0] = new Statement("Äåéñòâèå 3\nÄåéñòâèå 4");
 		 b3[1] = new Statement("Äåéñòâèå 4");
-		 b[0] = new Statement("Äåéñòâèå 1");
+		 b[0] = new Statement("Äåéñòâèå 1\nÄåéñòâèå 2\nÄåéñòâèå 3");
 		 b1[0] = new ForCycle(b1, "i>0");
 		 b[1] = new ForCycle(b3, "i>0");
 		 //b[2] = new Statement("Äåéñòâèå 3");

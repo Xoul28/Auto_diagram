@@ -19,5 +19,19 @@ public static void drawCenteredString(Graphics2D g, String s, int w, int h) {
 	int y = h + fm.getAscent() / 2;
 	g.drawString(s, x, y);
 }
+public static void drawCenteredLines(Graphics2D g, String s, int w, int h) {
+	int BLOCK_HEIGHT = 50;
+	h -= BLOCK_HEIGHT / 2;
+	String[] lines = s.split("\n");
+	int lineCount = lines.length;
+	FontMetrics fm = g.getFontMetrics();
+	h -= fm.getAscent() / 2;
+	int liney = (BLOCK_HEIGHT + fm.getAscent()) / (lineCount + 1); //+ g.getFontMetrics().getDescent()
+	for (int i = 0; i < lineCount; i++) {
+		int y = h + (i + 1) * liney;
+		// FOR DEBUG g.drawLine(w - 50, y, w + 50, y);
+		drawCenteredString(g, lines[i], w, y);
+	}
+}
 
 }
