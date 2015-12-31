@@ -52,7 +52,17 @@ public class ForCycle extends FunBlock{
 	  Coord.setY(Coord.getY()+50+10+Coord.getB());
 	  g2d.drawLine(Coord.getX(),Coord.getY()-30,Coord.getX(),Coord.getY()-35-Coord.getB());
 	  g2d.drawLine(Coord.getX(),Coord.getY()-30,Coord.getX()-Coord.getBias()-50,Coord.getY()-30);
+	  
+	  // left arrow
+	  g2d.drawLine(Coord.getX()-Coord.getBias()-50, Coord.getY()-30, Coord.getX()-Coord.getBias()-50+2, Coord.getY()-30-2);
+	  g2d.drawLine(Coord.getX()-Coord.getBias()-50, Coord.getY()-30, Coord.getX()-Coord.getBias()-50+2, Coord.getY()-30+2);
+	  
 	  g2d.drawLine(Coord.getX()-Coord.getBias()-50,Coord.getY()-30,retCoord.getX()-Coord.getBias(),retCoord.getY()-25);
+	  
+	  // top arrow
+	  g2d.drawLine(retCoord.getX()-Coord.getBias(),retCoord.getY()-25, retCoord.getX()-Coord.getBias()-2,retCoord.getY()-25+2);
+	  g2d.drawLine(retCoord.getX()-Coord.getBias(),retCoord.getY()-25, retCoord.getX()-Coord.getBias()+2,retCoord.getY()-25+2);
+	  
 	  g2d.drawLine(retCoord.getX()-Coord.getBias(),retCoord.getY()-25,retCoord.getX(),retCoord.getY()-25);	 
 	  g2d.drawLine(retCoord.getX()+100,retCoord.getY()-25,retCoord.getX()+100+Coord.getBias(),retCoord.getY()-25);	
 	  g2d.drawLine(retCoord.getX()+100+Coord.getBias(),retCoord.getY()-25,retCoord.getX()+100+Coord.getBias(),Coord.getY()-25);	
