@@ -3,6 +3,12 @@ package auto_BSA;
 public class Coords {
 	private  int x;
 	private  int y;
+	private int extremeLX;
+	private int extremeRX;
+	private int extremeDY;
+	//private int retX;
+	//private int retY;
+	private int investedCol = 0 ;
 	
 	public Coords(int x, int y){
 		this.x = x;
@@ -30,42 +36,51 @@ public class Coords {
 		this.y = y;
 	}
 	
-	private int investedCol = 0;
-	private int Bias=10;
-
-	public void incInvestedCol(){
+//	//координаты возврата
+//	public void setretX(int retx){
+//		this.retX = retx;
+//	}
+//	
+//	public void setretY(int rety){
+//		this.retY = rety;
+//	}
+//	public int getretX(){
+//		return retX;
+//	}
+//	
+//	public int getretY(){
+//		return retY;
+//	}
+	//самая правая и левая координаты
+	public void setextremeRX(int extremeRX){
+		this.extremeRX = extremeRX;
+	}
+	
+	public void setextremeLX(int extremeLX){
+		this.extremeLX = extremeLX;
+	}
+	public int getextremeRX(){
+		return extremeRX;
+	}
+	
+	public int getextremeLX(){
+		return extremeLX;
+	}
+	//нижняя координата
+	public void setextremeDY(int extremeDY){
+		this.extremeDY = extremeDY;
+	}
+	public int getextremeDY(){
+		return extremeDY;
+	}
+	//количество вложенности
+	public void incinvestedCol(){
 		investedCol++;
 	}
-	
-	public void decInvestedCol(){
-		investedCol--;
-	}
-	
-	public int getInvestedCol(){
+	public int getinvestedCol(){
 		return investedCol;
 	}
-	
-	public void incBias(){
-		Bias+=10;
+	public void decinvestedCol(){
+		investedCol--;
 	}
-
-	public int getBias(){
-		return Bias;
-	}
-	public void decBias(){
-		Bias=0;
-	}
-	
-	private int downB = 0;
-	public void incB(){
-		downB+=5;
-	}
-
-	public int getB(){
-		return downB;
-	}
-	public void decB(){
-		downB=0;
-	}
-	
 }

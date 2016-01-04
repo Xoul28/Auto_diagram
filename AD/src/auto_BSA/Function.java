@@ -14,12 +14,17 @@ public class Function extends FunBlock{
 	drawCenteredString(g2d, "Начало", Coord.getX(), Coord.getY());
 	nextArrow(Coord, g2d);
 	Coord.setY(Coord.getY()+48);
+	Coord.setextremeDY(Coord.getY()+25);
+	 Coord.setextremeRX(Coord.getX()+50);
+	 Coord.setextremeLX(Coord.getX()-50);
 	 for(int i = 0;i<body.length;i++){
 		 body[i].paint(Coord,g2d,true);
 		  
 	 }
-	 Coord.setY(Coord.getY()+50+20);
-	 Coord.setY(Coord.getY()-25+12);
+
+		Coord.setY(Coord.getY()+36+22);
+		
+
 	 g2d.drawRoundRect(Coord.getX()-50, Coord.getY()-12, 100, 25, 25, 25);
 	drawCenteredString(g2d, "Конец", Coord.getX(), Coord.getY());
 	}

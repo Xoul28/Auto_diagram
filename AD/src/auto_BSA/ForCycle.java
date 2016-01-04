@@ -5,14 +5,16 @@ import java.awt.Graphics2D;
 
 public class ForCycle extends FunBlock{
    
-    private int bias;
+  
 	public ForCycle(Block[] body, String line) {
 		super(body, line);
 	}
 
 	@Override
 	public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
-		Coord.incInvestedCol();
+	      Coord.incinvestedCol();
+	      
+	      //отрисовываем сам блок цикла
 		 int lenh=25,lenv=0,lenhn=50,lenvn=25;
 		 //top
 		 g2d.drawLine(Coord.getX()-lenh, Coord.getY()-lenvn, Coord.getX()+lenh, Coord.getY()-lenvn);
@@ -26,59 +28,65 @@ public class ForCycle extends FunBlock{
 		 g2d.drawLine(Coord.getX()+lenh, Coord.getY()+lenvn, Coord.getX()+lenhn, Coord.getY()+lenv);
 		 //bottom
 		 g2d.drawLine(Coord.getX()-lenh, Coord.getY()+lenvn, Coord.getX()+lenh, Coord.getY()+lenvn);
-		
+		 //строку внутри цикла отрисовываем
 		 drawCenteredString(g2d, line, Coord.getX(), Coord.getY());
+		 //рисуем стрелочку от блока до следующего блока
 		 nextArrow(Coord, g2d);
-		 Coords retCoord = new Coords(Coord.getX()-lenhn,Coord.getY()+lenvn);
-		 Coord.setY(Coord.getY()+50+20);
-		
-		 drawbody(Coord, g2d);
+		 //запоминаем координаты возвращения
+		 Coords retCoord = new Coords(Coord.getX(),Coord.getY());
+		 retCoord.setextremeLX(retCoord.getX()-50);
+		 retCoord.setextremeRX(retCoord.getX()+50);
 		 
-		 if(Coord.getInvestedCol()>0) {
-			 Coord.incB();
-			 returning(Coord, retCoord, g2d);
-			 Coord.incBias();
-			 
-		 }else{
-			 Coord.decBias();
-			 returning(Coord, retCoord, g2d);
-			 Coord.decB();
-		 }
-		 Coord.decInvestedCol();
+		 Coord.setY(Coord.getY()+50+20);
+		 Coord.setextremeDY(Coord.getextremeDY()+50+20);
+		 //отрисовываем тело
+		 drawbody(Coord, g2d);
+		
+	     returning(Coord, retCoord, g2d);
+         Coord.decinvestedCol();
+         if(Coord.getinvestedCol()==0){
+        	 Coord.setextremeRX(Coord.getX()+50);
+        	 Coord.setextremeLX(Coord.getX()-50);
+         }
+	
 		
 		
 	}
   private void returning(Coords Coord,Coords retCoord,Graphics2D g2d){
-	  Coord.setY(Coord.getY()+50+10+Coord.getB());
-	  g2d.drawLine(Coord.getX(),Coord.getY()-30,Coord.getX(),Coord.getY()-35-Coord.getB());
-	  g2d.drawLine(Coord.getX(),Coord.getY()-30,Coord.getX()-Coord.getBias()-50,Coord.getY()-30);
+
 	  
-	  // left arrow
-	  g2d.drawLine(Coord.getX()-Coord.getBias()-50, Coord.getY()-30, Coord.getX()-Coord.getBias()-50+2, Coord.getY()-30-2);
-	  g2d.drawLine(Coord.getX()-Coord.getBias()-50, Coord.getY()-30, Coord.getX()-Coord.getBias()-50+2, Coord.getY()-30+2);
+	  Coord.setextremeRX(Coord.getextremeRX()+5);
+	  Coord.setextremeLX(Coord.getextremeLX()-5);
+	  Coord.setextremeDY(Coord.getextremeDY()+5);
+	  //рисуем линию вниз
+	  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getX(),Coord.getextremeDY()-5);
+	  //влево
+	  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getextremeLX(),Coord.getextremeDY());
+	  //вверх
+	  g2d.drawLine(Coord.getextremeLX(),Coord.getextremeDY(),Coord.getextremeLX(),retCoord.getY());
 	  
-	  g2d.drawLine(Coord.getX()-Coord.getBias()-50,Coord.getY()-30,retCoord.getX()-Coord.getBias(),retCoord.getY()-25);
+	  Coord.setextremeDY(Coord.getextremeDY()+5);
+	//вправо к блоку цикла
+	  g2d.drawLine(Coord.getextremeLX(),retCoord.getY(),retCoord.getextremeLX(),retCoord.getY());
+	//вправо от блока цикла 
+	  g2d.drawLine(retCoord.getextremeRX(),retCoord.getY(),Coord.getextremeRX(),retCoord.getY());
+	//вниз 
+	  g2d.drawLine(Coord.getextremeRX(),retCoord.getY(),Coord.getextremeRX(),Coord.getextremeDY());	
+	//влево 
+	  g2d.drawLine(Coord.getextremeRX(),Coord.getextremeDY(),Coord.getX(),Coord.getextremeDY());	
+	//вниз
+	  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getX(),Coord.getextremeDY()+10);
 	  
-	  // top arrow
-	  g2d.drawLine(retCoord.getX()-Coord.getBias(),retCoord.getY()-25, retCoord.getX()-Coord.getBias()-2,retCoord.getY()-25+2);
-	  g2d.drawLine(retCoord.getX()-Coord.getBias(),retCoord.getY()-25, retCoord.getX()-Coord.getBias()+2,retCoord.getY()-25+2);
-	  
-	  g2d.drawLine(retCoord.getX()-Coord.getBias(),retCoord.getY()-25,retCoord.getX(),retCoord.getY()-25);	 
-	  g2d.drawLine(retCoord.getX()+100,retCoord.getY()-25,retCoord.getX()+100+Coord.getBias(),retCoord.getY()-25);	
-	  g2d.drawLine(retCoord.getX()+100+Coord.getBias(),retCoord.getY()-25,retCoord.getX()+100+Coord.getBias(),Coord.getY()-25);	
-	  g2d.drawLine(retCoord.getX()+100+Coord.getBias(),Coord.getY()-25,retCoord.getX()+50,Coord.getY()-25);	
-	  g2d.drawLine(retCoord.getX()+50,Coord.getY()-25,retCoord.getX()+50,Coord.getY()-15+Coord.getB());	
-	 
-	  g2d.setColor(Color.white);
-	 //g2d.drawLine(Coord.getX(),Coord.getY()-23,Coord.getX(),Coord.getY()-23-Coord.getB());
-	// g2d.drawLine(Coord.getX(),Coord.getY()-35-5,Coord.getX(),Coord.getY()-35-Coord.getB()-5);
-	  g2d.setColor(Color.black);
-	
-	  
-	  Coord.setY(Coord.getY()-50-10+Coord.getB());
-	  
+	  Coord.setextremeDY(Coord.getextremeDY()+10);
+	 // retCoord.setextremeDY(Coord.getextremeDY());
 	  
   }
-	
-	
+  @Override
+	public int getwidth() {
+	    int sum=10;
+		for (int i = 0; i < body.length; i++) {
+			sum+=body[i].getwidth();
+		}
+		return sum;
+  }
 }

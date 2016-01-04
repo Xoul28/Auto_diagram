@@ -18,20 +18,30 @@ public class Component extends JPanel{
 		 g2d.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
 		 g2d.setColor(Color.black);
 		 Coords c = new Coords(getWidth()/2,50);
-		 Block b1[] = new Block [2];
-		 Block b3[] = new Block [2];
-		 Block b[] = new Block[3];
-		 b1[0] = new Statement("Действие 1");
-		 b[2] = new Statement("Действие 2\nДействие 3\nДействие 4\nДействие 5");
-		 b3[0] = new Statement("Действие 3\nДействие 4");
-		 b3[1] = new Statement("Действие 4");
-		 b[0] = new Statement("Действие 1\nДействие 2\nДействие 3");
-		 b1[0] = new ForCycle(b1, "i>0");
-		 b[1] = new ForCycle(b3, "i>0");
-		 //b[2] = new Statement("Действие 3");
-		 ForCycle f = new ForCycle(b, "i=1...4");
-		 Block b2[] = {f};
-		 Function fun = new Function(b2, "");
+
+		 Block b6[] = new Block[2];
+		 b6[0]= new Statement("Ай дири ри");
+		 b6[1]= new Statement("Ай дири ри");
+		 Block b5[] = new Block[2];
+		 b5[0]= new Statement("Ай дири ри");
+		 b5[1]= new ForCycle(b6,"опа");
+		 Block b4[] = new Block[2];
+		 b4[0]= new Statement("Ай дири ри");
+		 b4[1]= new ForCycle(b5,"опа");
+		 
+		 Block b2[] = new Block[2];
+	     b2[0]= new Statement("Ай дири ри");
+	     b2[1]= new ForCycle(b4,"опа");
+	     
+	   
+	     
+	     Block b1[] = new Block[3];
+	     b1[0]= new Statement("Ай дири ри");
+	     b1[1]= new SelectorBlock(b4,"опа",b4);
+	     b1[2]= new Statement("Ай дири ри");
+	     Block b3[] = {new ForCycle(b1,"опа")};
+		 Function fun = new Function(b3, "");
+
 	     fun.paint(c, g2d,true);
 	  
 	 }

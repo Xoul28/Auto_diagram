@@ -24,7 +24,7 @@ public class DrawerSimple extends JFrame {
         cp.add(new Component(), BorderLayout.CENTER);
         JButton btn = new JButton("Close");
         cp.setBackground(Color.white);
-        setSize(500, 400);
+        setSize(500, 900);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

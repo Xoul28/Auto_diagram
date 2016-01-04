@@ -20,6 +20,7 @@ public static void drawCenteredString(Graphics2D g, String s, int w, int h) {
 	g.drawString(s, x, y);
 }
 public static void drawCenteredLines(Graphics2D g, String s, int w, int h) {
+
 	int BLOCK_HEIGHT = 50;
 	h -= BLOCK_HEIGHT / 2;
 	String[] lines = s.split("\n");
@@ -33,5 +34,8 @@ public static void drawCenteredLines(Graphics2D g, String s, int w, int h) {
 		drawCenteredString(g, lines[i], w, y);
 	}
 }
+
+
+public abstract int getwidth();
 
 }
