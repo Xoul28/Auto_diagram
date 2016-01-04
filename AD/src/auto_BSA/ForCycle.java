@@ -29,7 +29,7 @@ public class ForCycle extends FunBlock{
 		 //bottom
 		 g2d.drawLine(Coord.getX()-lenh, Coord.getY()+lenvn, Coord.getX()+lenh, Coord.getY()+lenvn);
 		 //строку внутри цикла отрисовываем
-		 drawCenteredString(g2d, line, Coord.getX(), Coord.getY());
+		 drawCenteredLines(g2d, line, Coord.getX(), Coord.getY());
 		 //рисуем стрелочку от блока до следующего блока
 		 nextArrow(Coord, g2d);
 		 //запоминаем координаты возвращения

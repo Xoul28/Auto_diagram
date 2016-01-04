@@ -31,7 +31,7 @@ public class SelectorBlock extends FunBlock{
 			 g2d.drawLine(Coord.getX()+lenhn, Coord.getY(), Coord.getX(), Coord.getY()+lenvn);
 			  //righttopline
 			 g2d.drawLine(Coord.getX(), Coord.getY()-lenvn, Coord.getX()-lenhn, Coord.getY());
-			 drawCenteredString(g2d, line, Coord.getX(), Coord.getY());		
+			 drawCenteredLines(g2d, line, Coord.getX(), Coord.getY());		
 			 nextArrow(Coord, g2d);
 			 
 			 Coords retCoord = new Coords(Coord.getX()+50,Coord.getY());

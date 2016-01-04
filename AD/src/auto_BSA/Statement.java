@@ -18,7 +18,6 @@ public class Statement extends Block{
 		 g2d.drawLine(Coord.getX()-50, Coord.getY()+25, Coord.getX()+50, Coord.getY()+25);
 		 g2d.drawLine(Coord.getX()-50, Coord.getY()-25, Coord.getX()-50, Coord.getY()+25);
 		 g2d.drawLine(Coord.getX()+50, Coord.getY()-25, Coord.getX()+50, Coord.getY()+25);
-		 drawCenteredString(g2d, line, Coord.getX(), Coord.getY());
 		 drawCenteredLines(g2d, line, Coord.getX(), Coord.getY());
 		 if(nextlinedraw){
 		 nextArrow(Coord, g2d);
