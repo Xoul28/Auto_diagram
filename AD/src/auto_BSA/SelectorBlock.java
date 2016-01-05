@@ -21,7 +21,7 @@ public class SelectorBlock extends FunBlock{
 		@Override
 		public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
 		   
-		   
+		     Coord.incinvestedCol();
 			int lenh=35,lenv=10,lenhn=50,lenvn=25;
 		     //lefttopline
 			 g2d.drawLine(Coord.getX()-lenhn, Coord.getY(), Coord.getX(), Coord.getY()+lenvn);
@@ -35,7 +35,7 @@ public class SelectorBlock extends FunBlock{
 			 nextArrow(Coord, g2d);
 			 
 			 Coords retCoord = new Coords(Coord.getX()+50,Coord.getY());
-			 
+			 retCoord.setinvestedCol(Coord.getinvestedCol());
 			 
 			
 			 Coord.setY(Coord.getY()+50+20); 
@@ -62,8 +62,13 @@ public class SelectorBlock extends FunBlock{
 			
 			 
 		     drawret(Coord, retCoord, g2d);
-		     Coord.setextremeRX(Coord.getextremeRX()+110+getwidth()*2-minusbody()*2);
-		  
+		     Coord.setinvestedCol(retCoord.getinvestedCol());
+		     Coord.setextremeRX(retCoord.getextremeRX()+getwidth()*2-minusbody()*2);
+		     Coord.decinvestedCol();
+		     if(Coord.getinvestedCol()==0){
+	        	 Coord.setextremeRX(Coord.getX()+50);
+	        	 Coord.setextremeLX(Coord.getX()-50);
+	         }
 		     
 		}
 		
@@ -96,6 +101,7 @@ public class SelectorBlock extends FunBlock{
 		 g2d.drawLine(Coord.getX(), retCoord.getextremeDY(), retCoord.getX(), Coord.getextremeDY()); 
 		 Coord.setextremeDY(Coord.getextremeDY()+10) ;
 		 retCoord.setextremeDY(retCoord.getextremeDY()+10) ;
+
 	 }
      @Override
  	public int getwidth() {
@@ -115,4 +121,5 @@ public class SelectorBlock extends FunBlock{
  		}
  		return sum;
     }
+	
 }

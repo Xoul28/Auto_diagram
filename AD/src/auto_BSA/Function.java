@@ -9,29 +9,35 @@ public class Function extends FunBlock{
 	}
 	@Override
 	public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
+	    
+		g2d.drawRoundRect(Coord.getX()-50, Coord.getY()-12, 100, 25, 25, 25);
 	
-	g2d.drawRoundRect(Coord.getX()-50, Coord.getY()-12, 100, 25, 25, 25);
-	drawCenteredString(g2d, "Начало", Coord.getX(), Coord.getY());
-	nextArrow(Coord, g2d);
-	Coord.setY(Coord.getY()+48);
-	Coord.setextremeDY(Coord.getY()+25);
-	 Coord.setextremeRX(Coord.getX()+50);
-	 Coord.setextremeLX(Coord.getX()-50);
-	 for(int i = 0;i<body.length;i++){
-		 body[i].paint(Coord,g2d,true);
-		  
-	 }
-
+		drawCenteredString(g2d, "Начало", Coord.getX(), Coord.getY());
+		Coord.setY((Coord.getY()-12));
+		nextArrow(Coord, g2d);
+		Coord.setY((Coord.getY()+12));
+		Coord.setY(Coord.getY()+58);
+		Coord.setextremeDY(Coord.getY()+25);
+		 Coord.setextremeRX(Coord.getX()+50);
+		 Coord.setextremeLX(Coord.getX()-50);
+		 drawbody(Coord, g2d);
 		Coord.setY(Coord.getY()+36+22);
-		
-
-	 g2d.drawRoundRect(Coord.getX()-50, Coord.getY()-12, 100, 25, 25, 25);
-	drawCenteredString(g2d, "Конец", Coord.getX(), Coord.getY());
+		 g2d.drawRoundRect(Coord.getX()-50, Coord.getY()-12, 100, 25, 25, 25);
+		drawCenteredString(g2d, "Конец", Coord.getX(), Coord.getY());
 	}
+ 
     @Override
-	public void nextArrow(Coords Coord,Graphics2D g2d) {
-		 g2d.drawLine(Coord.getX(), Coord.getY()+13, Coord.getX(), Coord.getY()+13+10);
-		 g2d.drawLine(Coord.getX(), Coord.getY()+13+10, Coord.getX()-2, Coord.getY()+12+8);
-		 g2d.drawLine(Coord.getX(), Coord.getY()+13+10, Coord.getX()+2, Coord.getY()+12+8);
+	public void drawbody(Coords Coord,Graphics2D g2d) {
+		 for(int i = 0 ; i<body.length ; i++) {
+			 if(i!=(body.length-1)) {
+			 body[i].paint(Coord,g2d,true); 
+			 Coord.setY(Coord.getY()+50+20);
+			 Coord.setY(Coord.getextremeDY()+25);
+			 Coord.setextremeDY(Coord.getextremeDY()+50);
+			 }else {
+			 body[i].paint(Coord,g2d,true);	 
+			// Coord.setextremeDY(Coord.getextremeDY()+25);
+			 } 
+		 }	 
 	}
 }

@@ -22,24 +22,25 @@ public class Component extends JPanel{
 		 Block b6[] = new Block[2];
 		 b6[0]= new Statement("јй дири ри");
 		 b6[1]= new Statement("јй дири ри");
-		 Block b5[] = new Block[2];
+		 Block b5[] = new Block[3];
 		 b5[0]= new Statement("јй дири ри");
-		 b5[1]= new ForCycle(b6,"опа");
+		 b5[1]= new SelectorBlock(b6,"опа",b6);
+		 b5[2]= new SelectorBlock(b6,"опа",b6);
 		 Block b4[] = new Block[2];
 		 b4[0]= new Statement("јй дири ри");
 		 b4[1]= new ForCycle(b5,"опа");
 		 
 		 Block b2[] = new Block[2];
 	     b2[0]= new Statement("јй дири ри");
-	     b2[1]= new ForCycle(b4,"опа");
+	     b2[1]= new SelectorBlock(b6,"опа",b6);
 	     
 	   
 	     
 	     Block b1[] = new Block[3];
 	     b1[0]= new Statement("јй дири ри");
-	     b1[1]= new SelectorBlock(b4,"опа",b4);
+	     b1[1]= new WhileCycle(b4,"опа");
 	     b1[2]= new Statement("јй дири ри");
-	     Block b3[] = {new ForCycle(b1,"опа")};
+	     Block b3[] = {new WhileCycle(b1,"опа"),new WhileCycle(b6,"опа")};
 		 Function fun = new Function(b3, "");
 
 	     fun.paint(c, g2d,true);

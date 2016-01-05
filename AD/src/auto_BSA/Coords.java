@@ -83,4 +83,7 @@ public class Coords {
 	public void decinvestedCol(){
 		investedCol--;
 	}
+	public void setinvestedCol(int investedCol){
+		this.investedCol = investedCol;
+	}
 }
