@@ -3,16 +3,14 @@ package auto_BSA;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class ForCycle extends Cycles{
+public class ForCycle extends Cycles {
 
 	public ForCycle(Block[] body, String line) {
 		super(body, line);
 	}
 
 	@Override
-	public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
-		
-	      
+	public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {      
 	      //отрисовываем сам блок цикла
 		 int lenh=25,lenv=0,lenhn=50,lenvn=25;
 		 //top
@@ -42,8 +40,6 @@ public class ForCycle extends Cycles{
 		 //отрисовываем тело
 		 drawbody(Coord, g2d);
 		
-	     returning(Coord, retCoord, g2d);
-	     
-	    
+	     returning(Coord, retCoord, g2d); 
 	}
 }

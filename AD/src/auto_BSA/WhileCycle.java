@@ -21,11 +21,11 @@ public class WhileCycle extends Cycles{
 			 g2d.drawLine(Coord.getX()+lenhn, Coord.getY(), Coord.getX(), Coord.getY()+lenvn);
 			  //righttopline
 			 g2d.drawLine(Coord.getX(), Coord.getY()-lenvn, Coord.getX()-lenhn, Coord.getY());
-			 //строку внутри цикла отрисовываем
+			 
 			 drawCenteredLines(g2d, line, Coord.getX(), Coord.getY());
-			 //рисуем стрелочку от блока до следующего блока
+			 
 			 nextArrow(Coord, g2d);
-			 //запоминаем координаты возвращения
+		
 			 Coords retCoord = new Coords(Coord.getX(),Coord.getY());
 			 retCoord.setextremeLX(retCoord.getX()-50);
 			 retCoord.setextremeRX(retCoord.getX()+50);
@@ -36,15 +36,12 @@ public class WhileCycle extends Cycles{
 			 //отрисовываем тело
 			 drawbody(Coord, g2d);
 			
-		     returning(Coord, retCoord, g2d);
-		     
-	       
+		     returning(Coord, retCoord, g2d);   
 		}
 		@Override
-		 public void returning(Coords Coord,Coords retCoord,Graphics2D g2d){
-
-			  Coord.setextremeRX(Coord.getextremeRX()+getcyc()+getwidth(Coord));
-			  Coord.setextremeLX(Coord.getextremeLX()-getcyc());
+		 public void returning(Coords Coord,Coords retCoord,Graphics2D g2d) {
+			  Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord));
+			  Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin());
 			  Coord.setextremeDY(Coord.getextremeDY()+5);
 			  //рисуем линию вниз
 			  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getX(),Coord.getextremeDY()-5);
@@ -66,7 +63,6 @@ public class WhileCycle extends Cycles{
 			  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getX(),Coord.getextremeDY()+10);
 			  
 			  Coord.setextremeDY(Coord.getextremeDY()+10);
-			 // retCoord.setextremeDY(Coord.getextremeDY());
-			  
+			 // retCoord.setextremeDY(Coord.getextremeDY());	  
 		  }
 	}

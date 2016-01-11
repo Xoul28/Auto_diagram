@@ -2,15 +2,12 @@ package auto_BSA;
 
 import java.awt.Graphics2D;
 
-public class Cycles extends FunBlock{
+public abstract class Cycles extends FunBlock {
 	
-	public Cycles(Block[] body,String line){
+	public Cycles(Block[] body,String line) {
 		super(body,line);
 	}
-	@Override
-	public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
-			
-	}
+
 	@Override
 	public void drawbody(Coords Coord,Graphics2D g2d) {
 		 for(int i = 0 ; i<body.length ; i++) {
@@ -28,19 +25,18 @@ public class Cycles extends FunBlock{
 	}
 	@Override
 	public int getwidth(Coords Coord) {
-		int sum=0;
+		int width=3;
  		for (int i = 0; i < body.length; i++) {
- 			if(body[i].getwidth(Coord)>sum)
- 			sum=body[i].getwidth(Coord);
- 			
+ 			if(body[i].getwidth(Coord)>width)
+ 				width=body[i].getwidth(Coord);	
  		}
- 		return sum;
+ 		return width;
 	  }
-	 public void returning(Coords Coord,Coords retCoord,Graphics2D g2d){
+	 public void returning(Coords Coord,Coords retCoord,Graphics2D g2d) {
 
-		  Coord.setextremeRX(Coord.getextremeRX()+getcyc()+getwidth(Coord));
+		  Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord));
 		  Coord.setinvestedCol(0);
-		  Coord.setextremeLX(Coord.getextremeLX()-getcyc());
+		  Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin());
 		  Coord.setextremeDY(Coord.getextremeDY()+5);
 		  //рисуем линию вниз
 		  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getX(),Coord.getextremeDY()-5);
@@ -62,17 +58,17 @@ public class Cycles extends FunBlock{
 		  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getX(),Coord.getextremeDY()+10);
 		  
 		  Coord.setextremeDY(Coord.getextremeDY()+10);
-		  Coord.setextremeLX(Coord.getextremeLX()+getcyc());
+		  Coord.setextremeLX(Coord.getextremeLX()+getCyclesMargin());
 		  Coord.setextremeRX(Coord.getX()+50);
 		 // retCoord.setextremeDY(Coord.getextremeDY());
 		//  Coord.setextremeRX(Coord.getextremeRX()-50+getcyc());
 	  }
-
+     
 	 @Override
-		public int getcyc() {
+		public int getCyclesMargin() {
 			int sum = 8;
 			for (int i = 0; i < body.length; i++) {
-	 			sum+=body[i].getcyc();
+	 			sum += body[i].getCyclesMargin();
 	 		}
 			return sum;
 		}

@@ -7,6 +7,7 @@ public abstract class Block {
 	String line;
 	 public Block() {
 	    }
+	 //if nextlinedraw -> drawing next line
 public abstract  void paint( Coords Coord,Graphics2D g2d,boolean nextlinedraw);
 public void nextArrow(Coords Coord,Graphics2D g2d) {
 	 g2d.drawLine(Coord.getX(), Coord.getY()+25, Coord.getX(), Coord.getY()+25+20);
@@ -35,9 +36,11 @@ public static void drawCenteredLines(Graphics2D g, String s, int w, int h) {
 	}
 }
 
-
+//сюда заглядывать не стоит....
 public abstract int getwidth(Coords Coord);
+//returns ifs col
 public abstract int isIf();
-public abstract int getcyc();
-
+public abstract int getCyclesMargin();
 }
+
+ 

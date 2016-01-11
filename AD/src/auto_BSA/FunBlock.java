@@ -2,17 +2,14 @@ package auto_BSA;
 
 import java.awt.Graphics2D;
 
-public class FunBlock extends Block{
+public abstract class FunBlock extends Block{
 	
 	public FunBlock(Block[] body,String line){
 		this.body = body;
 		this.line = line;
 	}
     Block body[];
-	@Override
-	public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
-			
-	}
+
 	public void drawbody(Coords Coord,Graphics2D g2d) {
 		 for(int i = 0 ; i<body.length ; i++) {
 			 if(i!=(body.length-1)) {
@@ -32,7 +29,7 @@ public class FunBlock extends Block{
 		return 0;
 	}
 	@Override
-	public int getcyc() {
+	public int getCyclesMargin() {
 		return 0;
 	}
 	@Override
@@ -40,8 +37,4 @@ public class FunBlock extends Block{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
-
-
 }
