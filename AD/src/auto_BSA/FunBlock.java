@@ -26,10 +26,21 @@ public class FunBlock extends Block{
 			 } 
 		 }	 
 	}
+
 	@Override
-	public int getwidth() {
+	public int isIf() {
 		return 0;
 	}
+	@Override
+	public int getcyc() {
+		return 0;
+	}
+	@Override
+	public int getwidth(Coords Coord) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	
 
 

@@ -36,7 +36,8 @@ public static void drawCenteredLines(Graphics2D g, String s, int w, int h) {
 }
 
 
-public abstract int getwidth();
-
+public abstract int getwidth(Coords Coord);
+public abstract int isIf();
+public abstract int getcyc();
 
 }

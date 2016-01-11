@@ -26,7 +26,18 @@ public class Statement extends Block{
 	 }
 
 	@Override
-	public int getwidth() {
+	public int getwidth(Coords Coord) {
+		return 0;
+	}
+
+	@Override
+	public int isIf() {
+		return 0;
+	}
+
+	@Override
+	public int getcyc() {
+		
 		return 0;
 	}
 

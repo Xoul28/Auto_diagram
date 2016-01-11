@@ -21,7 +21,8 @@ public class Function extends FunBlock{
 		 Coord.setextremeRX(Coord.getX()+50);
 		 Coord.setextremeLX(Coord.getX()-50);
 		 drawbody(Coord, g2d);
-		Coord.setY(Coord.getY()+36+22);
+		 Coord.setY(Coord.getextremeDY());
+		Coord.setY(Coord.getY()+12);
 		 g2d.drawRoundRect(Coord.getX()-50, Coord.getY()-12, 100, 25, 25, 25);
 		drawCenteredString(g2d, "Конец", Coord.getX(), Coord.getY());
 	}

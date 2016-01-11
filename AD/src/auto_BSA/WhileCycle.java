@@ -3,19 +3,13 @@ package auto_BSA;
 import java.awt.Graphics2D;
 
 public class WhileCycle extends Cycles{
-	   
 	  
-	
-
 		public WhileCycle(Block[] body, String line) {
 			super(body, line);
-		
 		}
 
 		@Override
 		public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
-		      Coord.incinvestedCol();
-		      
 		      //отрисовываем сам блок цикла
 			 int lenh=35,lenv=10,lenhn=50,lenvn=25;
 			 //top
@@ -35,6 +29,7 @@ public class WhileCycle extends Cycles{
 			 Coords retCoord = new Coords(Coord.getX(),Coord.getY());
 			 retCoord.setextremeLX(retCoord.getX()-50);
 			 retCoord.setextremeRX(retCoord.getX()+50);
+			 Coord.setextremeRX(retCoord.getX()+50);
 			 
 			 Coord.setY(Coord.getY()+50+20);
 			 Coord.setextremeDY(Coord.getextremeDY()+50+20);
@@ -43,18 +38,13 @@ public class WhileCycle extends Cycles{
 			
 		     returning(Coord, retCoord, g2d);
 		     
-	         Coord.decinvestedCol();
-	         if(Coord.getinvestedCol()==0){
-	        	 Coord.setextremeRX(Coord.getX()+50);
-	        	 Coord.setextremeLX(Coord.getX()-50);
-	         }
+	       
 		}
 		@Override
 		 public void returning(Coords Coord,Coords retCoord,Graphics2D g2d){
 
-			  
-			  Coord.setextremeRX(Coord.getextremeRX()+5);
-			  Coord.setextremeLX(Coord.getextremeLX()-5);
+			  Coord.setextremeRX(Coord.getextremeRX()+getcyc()+getwidth(Coord));
+			  Coord.setextremeLX(Coord.getextremeLX()-getcyc());
 			  Coord.setextremeDY(Coord.getextremeDY()+5);
 			  //рисуем линию вниз
 			  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getX(),Coord.getextremeDY()-5);
