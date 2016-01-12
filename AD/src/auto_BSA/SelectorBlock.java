@@ -1,11 +1,7 @@
 package auto_BSA;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 
-import javax.swing.JPanel;
 
 public class SelectorBlock extends FunBlock {
      Block elsebody[];
@@ -15,15 +11,15 @@ public class SelectorBlock extends FunBlock {
 	}
 		@Override
 		public void paint( Coords Coord, Graphics2D g2d,boolean nextlinedraw) {
-			int lenh=35,lenv=10,lenhn=50,lenvn=25;
+			
 		     //lefttopline
-			 g2d.drawLine(Coord.getX()-lenhn, Coord.getY(), Coord.getX(), Coord.getY()+lenvn);
+			 g2d.drawLine(Coord.getX()-HALFOFNORMALLENGHT, Coord.getY(), Coord.getX(), Coord.getY()+HALFOFNORMALHIGHT);
 			   //righttopline
-			 g2d.drawLine(Coord.getX(), Coord.getY()-lenvn, Coord.getX()+lenhn, Coord.getY());
+			 g2d.drawLine(Coord.getX(), Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()+HALFOFNORMALLENGHT, Coord.getY());
 			  //rightbottomline
-			 g2d.drawLine(Coord.getX()+lenhn, Coord.getY(), Coord.getX(), Coord.getY()+lenvn);
+			 g2d.drawLine(Coord.getX()+HALFOFNORMALLENGHT, Coord.getY(), Coord.getX(), Coord.getY()+HALFOFNORMALHIGHT);
 			  //righttopline
-			 g2d.drawLine(Coord.getX(), Coord.getY()-lenvn, Coord.getX()-lenhn, Coord.getY());
+			 g2d.drawLine(Coord.getX(), Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()-HALFOFNORMALLENGHT, Coord.getY());
 			 
 			 drawCenteredLines(g2d, line, Coord.getX(), Coord.getY());		
 			 nextArrow(Coord, g2d);

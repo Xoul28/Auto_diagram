@@ -22,9 +22,8 @@ public class DrawerSimple extends JFrame {
         //cp.add(new SelectorBlock("����� ���"), BorderLayout.CENTER);
         //cp.add(new Cycle("����� ���"), BorderLayout.CENTER);
         cp.add(new Component(), BorderLayout.CENTER);
-        JButton btn = new JButton("Close");
         cp.setBackground(Color.white);
-        setSize(500, 900);
+        setSize(700, 1000);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

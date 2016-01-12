@@ -1,11 +1,10 @@
 package auto_BSA;
 
-import java.awt.AWTException;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.Robot;
 
 import javax.swing.JPanel;
 

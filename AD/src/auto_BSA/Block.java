@@ -4,6 +4,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
 public abstract class Block {
+final int HALFOFNORMALLENGHT=50,HALFOFNORMALHIGHT=25;
 	String line;
 	 public Block() {
 	    }
@@ -36,9 +37,9 @@ public static void drawCenteredLines(Graphics2D g, String s, int w, int h) {
 	}
 }
 
-//сюда заглядывать не стоит....
+//if you see that method do not touch it...
 public abstract int getwidth(Coords Coord);
-//returns ifs col
+//returns ifs counts
 public abstract int isIf();
 public abstract int getCyclesMargin();
 }

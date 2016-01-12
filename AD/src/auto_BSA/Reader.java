@@ -28,7 +28,7 @@ public class Reader {
 		}
 		
 		String[] ret = crutch.toArray(new String[crutch.size()]);
-		return isComment(ret);	
+		return isComment(ret);
 	}
    
 	//Deletes all comments from String array interpretation of file.
@@ -67,7 +67,9 @@ public class Reader {
 			}
 		}
 		return line.toString();
+		
 	}
+	
 }
 
 
