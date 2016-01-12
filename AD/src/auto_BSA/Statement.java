@@ -37,7 +37,6 @@ public class Statement extends Block{
 
 	@Override
 	public int getCyclesMargin() {
-		
 		return 0;
 	}
 

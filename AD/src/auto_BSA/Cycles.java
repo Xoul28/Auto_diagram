@@ -25,7 +25,7 @@ public abstract class Cycles extends FunBlock {
 	}
 	@Override
 	public int getwidth(Coords Coord) {
-		int width=3;
+		int width=0;
  		for (int i = 0; i < body.length; i++) {
  			if(body[i].getwidth(Coord)>width)
  				width=body[i].getwidth(Coord);	
@@ -66,7 +66,7 @@ public abstract class Cycles extends FunBlock {
      
 	 @Override
 		public int getCyclesMargin() {
-			int sum = 8;
+			int sum = 6;
 			for (int i = 0; i < body.length; i++) {
 	 			sum += body[i].getCyclesMargin();
 	 		}

@@ -35,7 +35,7 @@ public class WhileCycle extends Cycles{
 			 Coord.setextremeDY(Coord.getextremeDY()+50+20);
 			 //отрисовываем тело
 			 drawbody(Coord, g2d);
-			
+		
 		     returning(Coord, retCoord, g2d);   
 		}
 		@Override
@@ -63,6 +63,8 @@ public class WhileCycle extends Cycles{
 			  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getX(),Coord.getextremeDY()+10);
 			  
 			  Coord.setextremeDY(Coord.getextremeDY()+10);
+			  Coord.setextremeLX(Coord.getextremeLX()+getCyclesMargin());
+			  Coord.setextremeRX(Coord.getX()+50);
 			 // retCoord.setextremeDY(Coord.getextremeDY());	  
 		  }
 	}

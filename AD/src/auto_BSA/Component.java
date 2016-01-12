@@ -1,9 +1,11 @@
 package auto_BSA;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Robot;
 
 import javax.swing.JPanel;
 
@@ -22,12 +24,12 @@ public class Component extends JPanel{
 		 Block b6[] = new Block[2];
 		 b6[0]= new Statement("јй дири ри");
 		 b6[1]= new Statement("јй дири ри");
-		 Block b5[] = new Block[0];
-//		 b5[0]=new SelectorBlock(b6,"опа",b6);
+		 Block b5[] = new Block[1];
+		 b5[0]= new DoWhileCycle(b6,"опа");
 //		 b5[1]= new SelectorBlock(b6,"опа",b6);
 //		 b5[2]= new SelectorBlock(b6,"опа",b6);
 		 Block b4[] = new Block[1];
-		 b4[0]=  new SelectorBlock(b6,"опа",b6);
+		 b4[0]= new DoWhileCycle(b5,"опа");
 		// b4[1]= new SelectorBlock(b6,"опа",b6);
 		 
 		 Block b2[] = new Block[2];
@@ -37,11 +39,12 @@ public class Component extends JPanel{
 	   
 	     
 	     Block b1[] = new Block[3];
-	     b1[0]= new SelectorBlock(b5,"опа",b6);
-	     b1[1]= new SelectorBlock(b5,"опа",b6);
-	    b1[2]=  new SelectorBlock(b4,"опа",b5);
-	     Block b3[] = {new ForCycle(b1,"опа")};
+	     b1[0]= new DoWhileCycle(b4,"опа");
+	     b1[1]=  new Statement("јй дири ри");
+	    b1[2]=   new Statement("јй дири ри");
+	     Block b3[] = {new ForCycle(b1,"опа"), new Statement("јй дири ри")};
 		 Function fun = new Function(b3, "");
+	
 
 	     fun.paint(c, g2d,true);
 	  
