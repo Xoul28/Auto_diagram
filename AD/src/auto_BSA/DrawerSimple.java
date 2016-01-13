@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 
 public class DrawerSimple extends JFrame {
-	public DrawerSimple(){
+	public DrawerSimple(Block function){
 		super("Block");
         JPanel cp = new JPanel(new BorderLayout());
         cp.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5),
@@ -21,14 +21,11 @@ public class DrawerSimple extends JFrame {
         setContentPane(cp);
         //cp.add(new SelectorBlock("����� ���"), BorderLayout.CENTER);
         //cp.add(new Cycle("����� ���"), BorderLayout.CENTER);
-        cp.add(new Component(), BorderLayout.CENTER);
+        cp.add(new Component(function), BorderLayout.CENTER);
         cp.setBackground(Color.white);
         setSize(700, 1000);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        new DrawerSimple().setVisible(true);
-    }
 }

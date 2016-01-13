@@ -9,8 +9,11 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 public class Component extends JPanel{
-	 public Component() {
-	        setOpaque(true);
+	private Block function;
+	
+	 public Component(Block function) {
+		 this.function = function;
+	     setOpaque(true);
 	 }
   
 	 @Override
@@ -19,7 +22,7 @@ public class Component extends JPanel{
 		 g2d.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
 		 g2d.setColor(Color.black);
 		 Coords c = new Coords(getWidth()/2,50);
-
+/*
 		 Block b6[] = new Block[2];
 		 b6[0]= new Statement("јй дири ри");
 		 b6[1]= new Statement("јй дири ри");
@@ -43,9 +46,9 @@ public class Component extends JPanel{
 	    b1[2]=   new Statement("јй дири ри");
 	     Block b3[] = {new ForCycle(b1,"опа"), new Statement("јй дири ри")};
 		 Function fun = new Function(b3, "");
-	
+*/	
 
-	     fun.paint(c, g2d,true);
+	     function.paint(c, g2d,true);
 	  
 	 }
 	
