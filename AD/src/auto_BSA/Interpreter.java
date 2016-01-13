@@ -1,13 +1,22 @@
 package auto_BSA;
-
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Interpreter {
 	private static Set<String> keywords;
+	private static Set<Pattern> types;
+	private static Set<Pattern> ioOperations;
+	private static Set<Pattern> ioFunctions;
+	private static Set<Pattern> typeConversions;
+	private static Set<Pattern> typeInParentheses;
 	private String code;
 	private int pos;
 	private int len;
+	private boolean flowchartMode;
 	
 	static {
 		keywords = new HashSet<String>();
@@ -16,16 +25,67 @@ public class Interpreter {
 		keywords.add("if");
 		keywords.add("while");
 		keywords.add("do");
+		keywords.add("case");
+		
+		types = new HashSet<Pattern>();
+		types.add(Pattern.compile("(int[\\s\\*]*)\\W"));
+		types.add(Pattern.compile("(float[\\s\\*]*)\\W"));
+		types.add(Pattern.compile("(double[\\s\\*]*)\\W"));
+		types.add(Pattern.compile("(char[\\s\\*]*)\\W"));
+		types.add(Pattern.compile("(bool[\\s\\*]*)\\W"));
+		types.add(Pattern.compile("(short[\\s\\*]*)\\W"));
+		types.add(Pattern.compile("(long[\\s\\*]*)\\W"));
+		types.add(Pattern.compile("(signed[\\s\\*]*)\\W"));
+		types.add(Pattern.compile("(unsigned[\\s\\*]*)\\W"));
+		types.add(Pattern.compile("(const[\\s\\*]*)\\W"));
+		types.add(Pattern.compile("(void[\\s\\*]*)\\W"));
+		
+		ioOperations = new HashSet<Pattern>();
+		ioOperations.add(Pattern.compile("->\\s*Caption"));
+		ioOperations.add(Pattern.compile("->\\s*Text"));
+		ioOperations.add(Pattern.compile("->\\s*Value"));
+		ioOperations.add(Pattern.compile("->\\s*Cells"));
+		ioOperations.add(Pattern.compile("->\\s*Checked"));
+		
+		ioFunctions = new HashSet<Pattern>();
+		ioFunctions.add(Pattern.compile("ShowMessage\\s*\\(([^;]*)\\)"));
+		
+		typeConversions = new HashSet<Pattern>();
+		typeConversions.add(Pattern.compile("IntToStr\\s*\\(([^;]*)\\)"));
+		typeConversions.add(Pattern.compile("StrToInt\\s*\\(([^;]*)\\)"));
+		typeConversions.add(Pattern.compile("FloatToStr\\s*\\(([^;]*)\\)"));
+		typeConversions.add(Pattern.compile("StrToFloat\\s*\\(([^;]*)\\)"));
+		
+		typeInParentheses = new HashSet<Pattern>();
+		typeInParentheses.add(Pattern.compile("\\(\\s*int[\\s\\*]*\\)"));
+		typeInParentheses.add(Pattern.compile("\\(\\s*float[\\s\\*]*\\)"));
+		typeInParentheses.add(Pattern.compile("\\(\\s*double[\\s\\*]*\\)"));
+		typeInParentheses.add(Pattern.compile("\\(\\s*char[\\s\\*]*\\)"));
+		typeInParentheses.add(Pattern.compile("\\(\\s*bool[\\s\\*]*\\)"));
+		typeInParentheses.add(Pattern.compile("\\(\\s*short[\\s\\*]*\\)"));
+		typeInParentheses.add(Pattern.compile("\\(\\s*long[\\s\\*]*\\)"));
+		typeInParentheses.add(Pattern.compile("\\(\\s*signed[\\s\\*]*\\)"));
+		typeInParentheses.add(Pattern.compile("\\(\\s*unsigned[\\s\\*]*\\)"));
+		typeInParentheses.add(Pattern.compile("\\(\\s*const[\\s\\*]*\\)"));
+		typeInParentheses.add(Pattern.compile("\\(\\s*void[\\s\\*]*\\)"));
+		
 	}
 	
 	private static boolean isKeyword(String str) {
 		return keywords.contains(str);
 	}
 	
-	public Interpreter(String code) {
+	// code is a program code,
+	// flowchartMode (default to true) enables I/O Blocks
+	public Interpreter(String code, boolean flowchartMode) {
 		this.code = code;
 		this.pos = 0;
 		this.len = code.length();
+		this.flowchartMode = flowchartMode;
+	}
+	
+	public Interpreter(String code) {
+		this(code, true);
 	}
 	
 	private char getCurrentChar() {
@@ -40,16 +100,17 @@ public class Interpreter {
 		return code.charAt(pos + 1);
 	}
 	
-	private boolean peekElse() {
+	private boolean peekWord(String word) {
 		skipWhitespaces();
 		StringBuilder keyword = new StringBuilder();
+		int len = word.length();
 		int i = pos;
 		char current = getCurrentChar();
-		while (!isEnd() && i - pos < 4) {
+		while (!isEnd() && i - pos < len) {
 			keyword.append(current);
 			String blockType = keyword.toString();
 			// if it is keyword with no-letter char next to it
-			if (blockType.equals("else") && !Character.isLetter(code.charAt(i + 1))) {
+			if (blockType.equals(word) && !Character.isLetter(code.charAt(i + 1))) {
 				return true;
 			}
 			i++;
@@ -58,11 +119,38 @@ public class Interpreter {
 		return false;
 	}
 	
+	private boolean peekElse() {
+		return peekWord("else");
+	}
+	
+	private boolean peekCase() {
+		return peekWord("case") || peekWord("default");
+	}
+	
 	private void skipElse() {
 		if (peekElse()) {
 			for (int i = 0; i < 4; i++) {
 				nextChar();
 			}
+		}
+	}
+	
+	private void skipCase() {
+		if (peekWord("case")) {
+			for (int i = 0; i < 4; i++) {
+				nextChar();
+			}
+		} else if (peekWord("default")) {
+			for (int i = 0; i < 7; i++) {
+				nextChar();
+			}
+		}
+	}
+	
+	private void skipSemicolon() {
+		skipWhitespaces();
+		if (getCurrentChar() == ';') {
+			nextChar();
 		}
 	}
 	
@@ -76,51 +164,134 @@ public class Interpreter {
 		}
 	}
 	
-	public void analyze() {
-		// StringBuilder buffer = new StringBuilder();
-		while (!isEnd()) {
-			System.out.print(readStatement());
-			/*
-			char current = getCurrentChar();
-			buffer.append(current);
-			String str = buffer.toString();
-			// if ('buffer' is a c++ keyword)
-			if (isKeyword(str)) {
-				nextChar();
-				System.out.println(str);
-				if (str.equals("do")) {
-					System.out.println('{' + readStatement() + '}');
-					System.out.println('(' + readCondition() + ')');
-				} else {
-					System.out.println('(' + readCondition() + ')');
-					System.out.println('{' + readStatement() + '}');
-				}
-			}
-			if (Character.isWhitespace(current)) {
-				buffer.setLength(0);
-			}
-			nextChar();//*/
+	private String toFlowchartString(String statement) {
+		if (!flowchartMode) {
+			return statement + ";";
 		}
+		for (Pattern type : typeInParentheses) {
+			statement = statement.replaceAll(type.pattern(), "").trim();
+		}
+		for (Pattern type : types) {
+			Matcher matcher = type.matcher(statement);
+			while (matcher.find()) {
+				statement = statement.substring(0, matcher.start(1)) +
+						  	statement.substring(matcher.end(1));
+				matcher = type.matcher(statement);
+			}
+		}
+		for (Pattern conversion : typeConversions) {
+			Matcher matcher = conversion.matcher(statement);
+			if (matcher.find()) {
+				statement = matcher.group(1);
+			}
+		}
+		statement = statement.trim();
+		if (statement.endsWith(";")) {
+			statement = statement.substring(0, statement.length() - 1);
+		}
+		statement = statement.replaceAll("\\s+", " ");
+		return statement.trim();
 	}
 	
-	private String readBlock(String blockType) {
-		StringBuilder block = new StringBuilder();
-		block.append("$" + blockType + "$ ");
-		if (blockType.equals("do")) {
-			block.append("{\n" + readStatement() + "} ");
-			block.append('(' + readCondition() + ")\n");
-		} else {
-			block.append('(' + readCondition() + ") ");
-			block.append("{\n" + readStatement() + "}");
-			if (blockType.equals("if") && peekElse()) {
-				skipElse();
-				block.append(" $else$ ");
-				block.append("{\n" + readStatement() + "}\n");
-			} else {
-				block.append('\n');
+	private  boolean isIOBlock(String statement) {
+		if (!flowchartMode) {
+			return false;
+		}
+		for (Pattern iostr : ioOperations) {
+			Matcher matcher = iostr.matcher(statement);
+			if (matcher.find()) {
+				return true;
 			}
 		}
-		return block.toString();
+		for (Pattern iostr : ioFunctions) {
+			Matcher matcher = iostr.matcher(statement);
+			if (matcher.find()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private String toIOBlockString(String statement) {
+		if (!flowchartMode) {
+			return statement = ";";
+		}
+		for (Pattern iostr : ioFunctions) {
+			Matcher matcher = iostr.matcher(statement);
+			if (matcher.find()) {
+				return toFlowchartString(matcher.group(1));
+			}
+		}
+		String[] strs = statement.split("=");
+		for (int i = 0; i < strs.length; i++) {
+			if (!isIOBlock(strs[i])) {
+				//strs[i] = strs[i].replaceAll("\\[\\s*\\w*\\s*\\]", "");
+				return toFlowchartString(strs[i]);
+			}
+		}
+		return statement.trim();
+	}
+	
+	public void deleteComments() {
+		Pattern directive = Pattern.compile("#.*$", Pattern.MULTILINE);
+		Matcher matcher = directive.matcher(code);
+		code = matcher.replaceAll("");
+
+		Pattern multilineComment = Pattern.compile("[^/]/\\*.*?\\*/", Pattern.DOTALL);
+		matcher = multilineComment.matcher(code);
+		code = matcher.replaceAll("");
+		
+		Pattern onelineComment = Pattern.compile("//.*$", Pattern.MULTILINE);
+		matcher = onelineComment.matcher(code);
+		code = matcher.replaceAll("\n");
+		
+		len = code.length();
+	}
+	
+	public List<Block> analyze() {
+		while (!isEnd()) {
+			List<Block> b = readFunction();
+			return b;
+		}
+		List<Block> b = new LinkedList<Block>();
+		return b;
+	}
+	
+	private List<Block> readBlock(String blockType) {
+		List<Block> blocks = new LinkedList<Block>();
+		if (blockType.equals("do")) {
+			List<Block> body = new LinkedList<Block>();
+			body.addAll(readStatement());
+			String condition = readCondition();
+			skipSemicolon();
+			blocks.add(new DoWhileCycle(body.toArray(new Block[0]), condition));
+		} else if (blockType.equals("switch")) {
+//			String condition = readCondition();
+//			List<Case> body = new LinkedList<Case>();
+//			body.addAll(readCases());
+//			blocks.add(new Switch(condition, body));
+		} else if (blockType.equals("case")) {
+//			Case block = readCase();
+//			blocks.add(block);
+		} else {
+			String condition = readCondition();
+			List<Block> body = new LinkedList<Block>();
+			body.addAll(readStatement());
+			if (blockType.equals("if") && peekElse()) {
+				skipElse();
+				List<Block> bodyElse = readStatement();
+				blocks.add(new SelectorBlock(body.toArray(new Block[0]), condition, bodyElse.toArray(new Block[0])));
+			} else if (blockType.equals("if")) {
+				blocks.add(new SelectorBlock(body.toArray(new Block[0]), condition, new Block[0]));
+			} else if (blockType.equals("for")) {
+				blocks.add(new ForCycle(body.toArray(new Block[0]), condition));
+			} else if (blockType.equals("while")) {
+				blocks.add(new WhileCycle(body.toArray(new Block[0]), condition));
+			} else {
+				
+			}
+		}
+		return blocks;
 	}
 	
 	private String readCondition() {
@@ -147,16 +318,25 @@ public class Interpreter {
 		return condition.toString().trim();
 	}
 	
-	private String readStatement() {
+	private List<Block> readStatement() {
 		// skip space chars
 		skipWhitespaces();
 		
-		if (isEnd()) return "";
+		if (isEnd()) {
+			List<Block> blocks = new LinkedList<Block>();
+			blocks.add(new EmptyBlock());
+			return blocks;
+		}
 		
 		char current = getCurrentChar();
 		
 		// if it is only 1 'expression;' or keyword
 		if (current != '{') {
+			if (peekCase()) {
+				List<Block> blocks = new LinkedList<Block>();
+				blocks.add(new EmptyBlock());
+				return blocks;
+			}
 			StringBuilder statement = new StringBuilder();
 			// try to read keyword-block
 			while (Character.isLetter(current)) {
@@ -177,48 +357,92 @@ public class Interpreter {
 				current = getCurrentChar();
 			}
 			nextChar(); // skip ';'
-			return statement.toString().trim() + ";\n";
+			List<Block> blocks = new LinkedList<Block>();
+			if (isIOBlock(statement.toString()) && flowchartMode) {
+				blocks.add(new IOBlock(toIOBlockString(statement.toString())));
+			} else {
+				blocks.add(new Statement(
+						toFlowchartString(statement.toString().trim())
+				));
+			}
+			return blocks;
 		}
 		
 		// if it is {expression1; ...}
-		return readCompoundStatement();
-		/*
-		statement.setLength(0);
-		
-		int braces = 1;
-		while (braces != 0) {
-			current = getCurrentChar();
-			// TODO обработка вложенных блоков
-			/*
-//			while (Character.isWhitespace(current)) {
-//				nextChar();
-//				current = getCurrentChar();
-//			}
-			switch (current) {
-			case '}':
-				braces--;
-				break;
-			case '{':
-				braces++;
-				break;
-			}
-			statement.append(current);
-			nextChar();
-		}
-		statement.deleteCharAt(statement.length() - 1); // delete last '}'
-		return statement.toString().trim();*/
+		nextChar(); // skip first '{'
+		List<Block> blocks = readCompoundStatement();
+		nextChar(); // skip }
+		return blocks;
 	}
 	
-	private String readCompoundStatement() {
-		nextChar(); // skip first '{'
+	private List<Block> readCompoundStatement() {
 		skipWhitespaces();
-		StringBuilder statement = new StringBuilder();
+		List<Block> blocks = new LinkedList<Block>();
 		while (getCurrentChar() != '}') {
-			statement.append(readStatement());
+			blocks.addAll(readStatement());
+			if (blocks.get(blocks.size() - 1) instanceof EmptyBlock) {
+				return blocks;
+			}
 			skipWhitespaces();
 		}
-		nextChar();
-		return statement.toString();
+		return blocks;
+	}
+	
+	private Case readCase() {
+		skipWhitespaces();
+		// skip characters before 'case'
+		while (!peekCase()) {
+			nextChar();
+		}
+		StringBuilder value = new StringBuilder();
+		
+		skipCase();
+		skipWhitespaces();
+		char current = getCurrentChar();
+		while (current != ':') {
+			value.append(current);
+			nextChar();
+			skipWhitespaces();
+			current = getCurrentChar();
+		}
+		nextChar(); // skip ':'
+		// skipWhitespaces();
+		List<Block> bodyCase = readCompoundStatement();
+		return new Case(bodyCase.toArray(new Block[0]), value.toString());
+	}
+	
+	private List<Case> readCases() {
+		skipWhitespaces();
+		nextChar(); // skip first '{'
+		List<Case> blocks = new LinkedList<Case>();
+		while (getCurrentChar() != '}') {
+			blocks.add(readCase());
+			skipWhitespaces();
+		}
+		nextChar(); // skip }
+		return blocks;
+	}
+	
+	private List<Block> readFunction() {
+		StringBuilder statement = new StringBuilder();
+		while (!isEnd()) {
+			char current = getCurrentChar();
+			// it is a 'statement ... ;', not a function
+			if (current == ';') {
+				statement.setLength(0);
+			} else if (current == '{') { // it is a function declaration
+				nextChar(); // skip first '{'
+				List<Block> blocks = readCompoundStatement();
+				nextChar(); // skip }
+				List<Block> function = new LinkedList<Block>();
+				function.add(new Function(blocks.toArray(new Block[0]), statement.toString().trim()));
+				return function;
+			} else {
+				statement.append(current);
+			}
+			nextChar();
+		}
+		return new LinkedList<Block>();
 	}
 	
 }

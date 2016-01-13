@@ -1,29 +1,27 @@
 package auto_BSA;
-
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-
+import java.io.FileReader;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
-//		FileReader file = new FileReader("file.cpp");
-//		Scanner scanner = new Scanner(file);
-//		//LinkedList<String> code = new LinkedList<String>();
-//		StringBuilder code = new StringBuilder();
-//		while (scanner.hasNextLine()) {
-//			code.append(scanner.nextLine() + '\n');
-//		}
-//		// System.out.println(code);
-//		Interpreter icpp = new Interpreter(code.toString());
-//		icpp.analyze();
-//		scanner.close();
-       Reader red = new Reader("./AD/src/Auto_BSA/file.cpp");
-       //reading file and removing comments
-       String[] s = red.read();
-       Interpreter icpp = new Interpreter(red.OneStringConverter(s));
-       icpp.analyze();
-	
-	  	
+		if (args.length > 0) {
+			FileReader file = new FileReader(args[0]);
+			Scanner scanner = new Scanner(file);
+			StringBuilder code = new StringBuilder();
+			while (scanner.hasNextLine()) {
+				code.append(scanner.nextLine() + '\n');
+			}
+			Interpreter icpp = new Interpreter(code.toString());
+			icpp.deleteComments();
+			Block[] b = icpp.analyze().toArray(new Block[0]);
+			scanner.close();
+			new DrawerSimple(b[0]).setVisible(true);
+		}
 	}
 
 }
