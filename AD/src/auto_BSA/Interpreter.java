@@ -189,7 +189,7 @@ public class Interpreter {
 		if (statement.endsWith(";")) {
 			statement = statement.substring(0, statement.length() - 1);
 		}
-		statement = statement.replaceAll("\\s+", " ");
+		statement = statement.replaceAll("\\s\\s+", " ");
 		return statement.trim();
 	}
 	
