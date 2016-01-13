@@ -28,8 +28,7 @@ public class SelectorBlock extends FunBlock {
 			
 			 Coord.setY(Coord.getY()+50+20); 
 			 Coord.setextremeDY(Coord.getextremeDY()+50+20);
-			 //TODO стереть это
-			 
+				 
 			 if(body.length!=0){
 				 drawbody(Coord, g2d);
 			 }else{
@@ -92,6 +91,9 @@ public class SelectorBlock extends FunBlock {
 		 }
 		 g2d.drawLine(Coord.getX(), Coord.getextremeDY()-10, Coord.getX(), Coord.getextremeDY()+10); 
 		 g2d.drawLine(Coord.getX(), retCoord.getextremeDY(), retCoord.getX(), Coord.getextremeDY()); 
+		  //arrows
+		  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getX()+2, Coord.getextremeDY()-2);
+		  g2d.drawLine(Coord.getX(),Coord.getextremeDY(), Coord.getX()+2, Coord.getextremeDY()+2);
 		 Coord.setextremeDY(Coord.getextremeDY()+10) ;
 		 retCoord.setextremeDY(retCoord.getextremeDY()+10) ;    
 	 }

@@ -9,9 +9,14 @@ public class ForCycleReturning implements CycleReturning{
 		  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getX(),Coord.getextremeDY()-5);
 		  //left
 		  g2d.drawLine(Coord.getX(),Coord.getextremeDY(),Coord.getextremeLX(),Coord.getextremeDY());
+		  //arrows
+		  g2d.drawLine(Coord.getextremeLX(),Coord.getextremeDY(),Coord.getextremeLX()+2, Coord.getextremeDY()-2);
+		  g2d.drawLine(Coord.getextremeLX(),Coord.getextremeDY(), Coord.getextremeLX()+2, Coord.getextremeDY()+2);
 		  //up
 		  g2d.drawLine(Coord.getextremeLX(),Coord.getextremeDY(),Coord.getextremeLX(),retCoord.getY());
-		  
+		  //arrows
+		  g2d.drawLine(Coord.getextremeLX(), retCoord.getY(), Coord.getextremeLX()-2, retCoord.getY()+3);
+		  g2d.drawLine(Coord.getextremeLX(), retCoord.getY(), Coord.getextremeLX()+2, retCoord.getY()+3);
 		  Coord.setextremeDY(Coord.getextremeDY()+5);
 		//right to block
 		  g2d.drawLine(Coord.getextremeLX(),retCoord.getY(),retCoord.getextremeLX(),retCoord.getY());

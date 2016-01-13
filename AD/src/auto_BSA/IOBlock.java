@@ -16,8 +16,8 @@ public class IOBlock extends Block {
 		g2d.setColor(Color.black);
 		g2d.drawLine(Coord.getX()-HALFOFNORMALLENGHT + 10, Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()+HALFOFNORMALLENGHT, Coord.getY()-HALFOFNORMALHIGHT);
 		g2d.drawLine(Coord.getX()-HALFOFNORMALLENGHT, Coord.getY()+HALFOFNORMALHIGHT, Coord.getX()+HALFOFNORMALLENGHT - 10, Coord.getY()+HALFOFNORMALHIGHT);
-		g2d.drawLine(Coord.getX()-HALFOFNORMALLENGHT, Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()-HALFOFNORMALLENGHT + 10, Coord.getY()+HALFOFNORMALHIGHT);
-		g2d.drawLine(Coord.getX()+HALFOFNORMALLENGHT - 10, Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()+HALFOFNORMALLENGHT, Coord.getY()+HALFOFNORMALHIGHT);
+		g2d.drawLine(Coord.getX()-HALFOFNORMALLENGHT + 10, Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()-HALFOFNORMALLENGHT , Coord.getY()+HALFOFNORMALHIGHT);
+		g2d.drawLine(Coord.getX()+HALFOFNORMALLENGHT , Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()+HALFOFNORMALLENGHT - 10 , Coord.getY()+HALFOFNORMALHIGHT);
 		drawCenteredLines(g2d, line, Coord.getX(), Coord.getY());
 		if (nextlinedraw) {
 			nextArrow(Coord, g2d);

@@ -6,8 +6,9 @@ public class EmptyBlock extends Block {
 
 	@Override
 	public void paint(Coords Coord, Graphics2D g2d, boolean nextlinedraw) {
-		g2d.drawLine(Coord.getX(), Coord.getY() - HALFOFNORMALHIGHT,
-					 Coord.getX(), Coord.getY() + HALFOFNORMALHIGHT);
+		g2d.drawLine(Coord.getX(), Coord.getY() - HALFOFNORMALHIGHT, Coord.getX(), Coord.getY() + HALFOFNORMALHIGHT);
+		 nextArrow(Coord, g2d);
+		 Coord.setextremeDY(Coord.getextremeDY()+20);
 	}
 
 	@Override
