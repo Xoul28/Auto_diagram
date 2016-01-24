@@ -35,7 +35,12 @@ public class WhileCycle extends Cycles{
 			 Coord.setY(Coord.getY()+50+20);
 			 Coord.setextremeDY(Coord.getextremeDY()+50+20);
 			 //отрисовываем тело
-			 drawbody(Coord, g2d);
+			 if(body.length!=0){
+				 drawbody(Coord, g2d);
+			 }else{
+				 Coord.setY(Coord.getY()-50-20); 
+				 Coord.setextremeDY(Coord.getextremeDY()-50-20);
+			 }
 			 Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord));
 			  Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin());
 			  Coord.setextremeDY(Coord.getextremeDY()+5);

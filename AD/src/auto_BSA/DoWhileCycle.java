@@ -21,7 +21,12 @@ public class DoWhileCycle extends Cycles{
 			 retCoord.setextremeRX(retCoord.getX()+50);
 			 Coord.setextremeRX(retCoord.getX()+50);  
 			 
-			 drawbody(Coord, g2d);
+			 if(body.length!=0){
+				 drawbody(Coord, g2d);
+			 }else{
+				 Coord.setY(Coord.getY()-50-20); 
+				 Coord.setextremeDY(Coord.getextremeDY()-50-20);
+			 }
 			 Coord.setextremeDY(Coord.getextremeDY()-20);
 			 Coord.setY(Coord.getY()+20);
 			 Coord.setY(Coord.getextremeDY()+25);

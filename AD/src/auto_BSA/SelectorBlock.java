@@ -35,8 +35,16 @@ public class SelectorBlock extends FunBlock {
 				 Coord.setY(Coord.getY()-50-20); 
 				 Coord.setextremeDY(Coord.getextremeDY()-50-20);
 			 }
-			 
-			 retCoord.setextremeRX(Coord.getextremeRX()+getwidth(Coord)-minusbody(Coord)-50);
+			 int marg = 50;
+			 if(elsebody.length!=0){
+				 for (int i = 0; i < elsebody.length; i++) {
+					marg-=elsebody[i].getCyclesMargin();
+				}
+				 for (int i = 0; i < body.length; i++) {
+						marg-=body[i].getCyclesMargin();
+					}
+			 }
+			 retCoord.setextremeRX(Coord.getextremeRX() + getwidth(Coord) - minusbody(Coord) - marg );
 			
 			 g2d.drawLine(retCoord.getX(), retCoord.getY(), retCoord.getextremeRX(), retCoord.getY());
 			 
@@ -110,7 +118,10 @@ public class SelectorBlock extends FunBlock {
  	}
      @Override
  	public int getwidth(Coords Coord) {
-    	 int sum=110;
+    	 
+    	 
+    	 int sum = 110; 
+    	 
     	 int k=0;
  		for (int i = 0; i < elsebody.length; i++) {
  			sum += elsebody[i].getwidth(Coord);
@@ -136,5 +147,5 @@ public class SelectorBlock extends FunBlock {
  		}
  		return sum;
     }
-	
+  
 }

@@ -36,7 +36,7 @@ public abstract class Cycles extends FunBlock {
      
 	 @Override
 	public int getCyclesMargin() {
-		int sum = 6;
+		int sum = 7;
 		for (int i = 0; i < body.length; i++) {
 		 		sum += body[i].getCyclesMargin();
 		 }

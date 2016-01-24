@@ -11,7 +11,7 @@ public abstract class FunBlock extends Block{
     Block body[];
 
 	public void drawbody(Coords Coord,Graphics2D g2d) {
-		 for(int i = 0 ; i<body.length ; i++) {
+		 for(int i = 0 ; i < body.length ; i++) {
 			 if(i!=(body.length-1)) {
 			 body[i].paint(Coord,g2d,true); 
 			 Coord.setY(Coord.getY()+50+20);
@@ -30,7 +30,11 @@ public abstract class FunBlock extends Block{
 	}
 	@Override
 	public int getCyclesMargin() {
-		return 0;
+		int sum = 0;
+		for (int i = 0; i < body.length; i++) {
+			 	sum += body[i].getCyclesMargin();
+		}
+		return sum;
 	}
 	@Override
 	public int getwidth(Coords Coord) {
