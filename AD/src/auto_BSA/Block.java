@@ -43,6 +43,7 @@ public abstract int isIf();
 public  int isBreak(){
 	return 0;
 }
+
 public abstract int getCyclesMargin();
 }
 

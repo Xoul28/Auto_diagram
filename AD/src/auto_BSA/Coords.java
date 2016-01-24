@@ -1,6 +1,7 @@
 package auto_BSA;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Coords {
 	private  int x;
@@ -40,7 +41,8 @@ public class Coords {
 	
 
 	//queue of break-_-
-	ArrayList<Coords> breakingList = new ArrayList();
+	Queue<Coords> breakingList = new LinkedList<Coords>();
+	
 	public void setextremeRX(int extremeRX){
 		this.extremeRX = extremeRX;
 	}

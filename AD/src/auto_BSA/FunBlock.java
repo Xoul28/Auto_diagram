@@ -14,7 +14,7 @@ public abstract class FunBlock extends Block{
 		 for(int i = 0 ; i < body.length ; i++) {
 			 if(i!=(body.length-1)) {
 			 body[i].paint(Coord,g2d,true); 
-			 if(body[i].isBreak() == 1){
+			 if(body[i].isBreak() != 0){
 				 break;
 			 }
 			 Coord.setY(Coord.getextremeDY()+25);
@@ -46,5 +46,12 @@ public abstract class FunBlock extends Block{
 	public int getelsecyclemargin(){
 		return 0;
 	}
-	
+	 public boolean isThereABreakInBody() {
+		 for (int i = 0; i < body.length; i++) {
+			 if(body[i].isBreak() == 1) {
+				 return true;
+			 }
+		 }
+		 return false;
+	 }
 }

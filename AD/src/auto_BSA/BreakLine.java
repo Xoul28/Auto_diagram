@@ -6,8 +6,9 @@ public class BreakLine extends Block{
 
 	@Override
 	public void paint(Coords Coord, Graphics2D g2d, boolean nextlinedraw) {
+		Coord.setextremeDY(Coord.getY()-25);
 		Coord.setY(Coord.getY()-25);
-		Coord.breakingList.add(Coord);
+		Coord.breakingList.add(new Coords(Coord.getX(),Coord.getY()));
 		
 	}
 
