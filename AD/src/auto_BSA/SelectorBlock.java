@@ -36,15 +36,16 @@ public class SelectorBlock extends FunBlock {
 				 Coord.setextremeDY(Coord.getextremeDY()-50-20);
 			 }
 			 int marg = 50;
-			 if(elsebody.length!=0){
-				 for (int i = 0; i < elsebody.length; i++) {
-					marg-=elsebody[i].getCyclesMargin();
-				}
-				 for (int i = 0; i < body.length; i++) {
-						marg-=body[i].getCyclesMargin();
-					}
-			 }
-			 retCoord.setextremeRX(Coord.getextremeRX() + getwidth(Coord) - minusbody(Coord) - marg );
+//			 if(elsebody.length!=0){
+//				 for (int i = 0; i < elsebody.length; i++) {
+//					marg-=elsebody[i].getCyclesMargin();
+//				}
+//				 for (int i = 0; i < body.length; i++) {
+//						marg-=body[i].getCyclesMargin();
+//					}
+//			 }
+			 retCoord.setextremeRX(Coord.getextremeRX() + getwidth(Coord) - minusbody(Coord) - marg  );
+			 System.out.println(getelsecyclemargin());
 			
 			 g2d.drawLine(retCoord.getX(), retCoord.getY(), retCoord.getextremeRX(), retCoord.getY());
 			 
@@ -120,7 +121,7 @@ public class SelectorBlock extends FunBlock {
  	public int getwidth(Coords Coord) {
     	 
     	 
-    	 int sum = 110; 
+    	 int sum = 115; 
     	 
     	 int k=0;
  		for (int i = 0; i < elsebody.length; i++) {
@@ -128,7 +129,7 @@ public class SelectorBlock extends FunBlock {
  			k += elsebody[i].isIf();
  		}
  		if(k==1){
- 			sum=sum-k*110+110;
+ 			sum=sum-k*115+115;
  		}
  		k=0;
  		for (int i = 0; i < body.length; i++) {
@@ -136,9 +137,9 @@ public class SelectorBlock extends FunBlock {
  			k += body[i].isIf();
  		}
  		if(k==1){
- 		sum=sum-k*110+110;
+ 		sum=sum-k*115+115;
  		}
- 		return sum;
+ 		return sum+getCyclesMargin();
  	}
     public int minusbody(Coords Coord){
     	int sum=0;
@@ -147,5 +148,24 @@ public class SelectorBlock extends FunBlock {
  		}
  		return sum;
     }
-  
+    @Override
+	public int getCyclesMargin() {
+		int sum = 0;
+		for (int i = 0; i < body.length; i++) {
+			sum += body[i].getCyclesMargin();
+		}
+	
+		for (int i = 0; i < elsebody.length; i++) {
+		 	sum += elsebody[i].getCyclesMargin();
+		}
+		return sum;
+	}
+    @Override
+    public int getelsecyclemargin(){
+    	int sum = 0;
+    	for (int i = 0; i < body.length; i++) {
+		 	sum += body[i].getCyclesMargin();
+		}
+		return sum;
+	}
 }

@@ -42,4 +42,6 @@ public abstract class Cycles extends FunBlock {
 		 }
 		return sum;
 	}
+	 
+
 }

@@ -41,4 +41,8 @@ public abstract class FunBlock extends Block{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	public int getelsecyclemargin(){
+		return 0;
+	}
+	
 }
