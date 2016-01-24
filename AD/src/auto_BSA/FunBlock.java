@@ -14,7 +14,9 @@ public abstract class FunBlock extends Block{
 		 for(int i = 0 ; i < body.length ; i++) {
 			 if(i!=(body.length-1)) {
 			 body[i].paint(Coord,g2d,true); 
-			 Coord.setY(Coord.getY()+50+20);
+			 if(body[i].isBreak() == 1){
+				 break;
+			 }
 			 Coord.setY(Coord.getextremeDY()+25);
 			 Coord.setextremeDY(Coord.getextremeDY()+50);
 			 }else {

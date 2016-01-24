@@ -1,5 +1,7 @@
 package auto_BSA;
 
+import java.util.ArrayList;
+
 public class Coords {
 	private  int x;
 	private  int y;
@@ -36,22 +38,9 @@ public class Coords {
 		this.y = y;
 	}
 	
-//	//координаты возврата
-//	public void setretX(int retx){
-//		this.retX = retx;
-//	}
-//	
-//	public void setretY(int rety){
-//		this.retY = rety;
-//	}
-//	public int getretX(){
-//		return retX;
-//	}
-//	
-//	public int getretY(){
-//		return retY;
-//	}
-	//самая правая и левая координаты
+
+	//queue of break-_-
+	ArrayList<Coords> breakingList = new ArrayList();
 	public void setextremeRX(int extremeRX){
 		this.extremeRX = extremeRX;
 	}

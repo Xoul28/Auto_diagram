@@ -45,7 +45,10 @@ public class ForCycle extends Cycles {
 			 Coord.setY(Coord.getY()-50-20); 
 			 Coord.setextremeDY(Coord.getextremeDY()-50-20);
 		 }
-		 
+		if(isThereABreakInCycleBody()){
+			nextArrow(retCoord, g2d);
+			Coord.setY(Coord.getextremeDY()+50);
+		}else{
 		 Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord));
 		 Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin());
 		 Coord.setextremeDY(Coord.getextremeDY()+5);
@@ -55,5 +58,6 @@ public class ForCycle extends Cycles {
 	     Coord.setextremeDY(Coord.getextremeDY()+10);
 		 Coord.setextremeLX(Coord.getextremeLX()+getCyclesMargin());
 		 Coord.setextremeRX(Coord.getX()+50);
+		}
 	}
 }

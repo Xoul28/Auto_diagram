@@ -40,6 +40,9 @@ public static void drawCenteredLines(Graphics2D g, String s, int w, int h) {
 public abstract int getwidth(Coords Coord);
 //returns ifs counts
 public abstract int isIf();
+public  int isBreak(){
+	return 0;
+}
 public abstract int getCyclesMargin();
 }
 

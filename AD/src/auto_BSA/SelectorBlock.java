@@ -45,7 +45,6 @@ public class SelectorBlock extends FunBlock {
 //					}
 //			 }
 			 retCoord.setextremeRX(Coord.getextremeRX() + getwidth(Coord) - minusbody(Coord) - marg  );
-			 System.out.println(getelsecyclemargin());
 			
 			 g2d.drawLine(retCoord.getX(), retCoord.getY(), retCoord.getextremeRX(), retCoord.getY());
 			 
