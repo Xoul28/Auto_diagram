@@ -361,9 +361,14 @@ public class Interpreter {
 			if (isIOBlock(statement.toString()) && flowchartMode) {
 				blocks.add(new IOBlock(toIOBlockString(statement.toString())));
 			} else {
-				blocks.add(new Statement(
-						toFlowchartString(statement.toString().trim())
-				));
+				String statementStr = toFlowchartString(statement.toString().trim());
+				if (statementStr.equals("break")) {
+					blocks.add(new BreakLine());
+				} else if (statementStr.equals("continue")) {
+					blocks.add(new ContinueLine());
+				} else {
+					blocks.add(new Statement(statementStr));
+				}
 			}
 			return blocks;
 		}
