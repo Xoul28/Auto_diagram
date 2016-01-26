@@ -4,6 +4,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
 public abstract class Block {
+	public static  Integer breakinthelaw=1;
 final int HALFOFNORMALLENGHT=50,HALFOFNORMALHIGHT=25;
 	String line;
 	 public Block() {
@@ -45,6 +46,9 @@ public  int isBreak(){
 }
 
 public abstract int getCyclesMargin();
+public  int breakMargin(){
+	return 0;
+}
 }
 
  

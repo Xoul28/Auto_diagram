@@ -50,8 +50,8 @@ public class ForCycle extends Cycles {
 			Coord.setY(Coord.getextremeDY()+50);
 		}else{
 	     
-		 Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord));
-		 drawbreak(Coord, g2d);
+		 Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord)+breakMargin());
+		 drawbreak(Coord, g2d, retCoord.getY());
 		 Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin());
 		 Coord.setextremeDY(Coord.getextremeDY()+5);
 		

@@ -54,4 +54,13 @@ public abstract class FunBlock extends Block{
 		 }
 		 return false;
 	 }
+	 @Override
+	 public int breakMargin(){
+		 for (int i = 0; i < body.length; i++) {
+			if(body[i].breakMargin() == 30){
+				return 30;
+			}
+		}
+		return 0; 
+	 }
 }

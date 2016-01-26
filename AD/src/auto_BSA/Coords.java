@@ -17,6 +17,10 @@ public class Coords {
 		this.x = x;
 		this.y = y;
 	}
+	public Coords(Coords retCoord){
+		this.x = retCoord.getX();
+		this.y = retCoord.getY();
+	}
 	
 	public int getX(){
 		return x;

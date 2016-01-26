@@ -28,20 +28,39 @@ public abstract class Cycles extends FunBlock {
 		return sum;
 	}
 	
-	 public void drawbreak(Coords Coord,Graphics2D g2d){
-		 if(Coord.breakingList.size()>0){
+	 public void drawbreak(Coords Coord,Graphics2D g2d,int y){
+		 
+	
 		for (Coords iter : Coord.breakingList) {
-			if(iter.getX() >= Coord.getextremeRX()-50-getCyclesMargin()){
-			g2d.drawLine(iter.getX(), iter.getY(), Coord.getextremeRX(), iter.getY());
-			}else{
-				g2d.drawLine(iter.getX(), iter.getY(), iter.getX()+6, iter.getY());
-				g2d.drawOval(iter.getX()+6, iter.getY()-6, 12, 12);
+			if(y<iter.getY()){
 				
-				g2d.drawLine(Coord.getextremeRX()-6, iter.getY(), Coord.getextremeRX(), iter.getY());
-				g2d.drawOval(Coord.getextremeRX()-18, iter.getY()-6, 12, 12);
+				if(iter.getX() >= Coord.getextremeRX()-50-getCyclesMargin()-breakMargin()){
+					g2d.drawLine(iter.getX(), iter.getY(), Coord.getextremeRX(), iter.getY());
+				}else{
+					
+					g2d.drawLine(iter.getX(), iter.getY(), iter.getX()+6, iter.getY());
+					g2d.drawOval(iter.getX()+6, iter.getY()-12, 25, 25);
+					drawCenteredString(g2d, Block.breakinthelaw.toString(), iter.getX()+18, iter.getY());
+					int m = 0;
+					for (Coords iter_f : Coord.breakingList) {
+						if(iter.getY()==iter_f.getY()&& iter.getX()!=iter_f.getX()){
+							m-=27;
+						}
+					}
+					iter.setY(iter.getY()+m);
+					
+					drawCenteredString(g2d, Block.breakinthelaw.toString(), Coord.getextremeRX()-18, iter.getY());
+					g2d.drawLine(Coord.getextremeRX()-6, iter.getY(), Coord.getextremeRX(), iter.getY());
+					g2d.drawOval(Coord.getextremeRX()-31, iter.getY()-12, 25, 25);
+				}	
+				Block.breakinthelaw =Block.breakinthelaw.intValue()+ 1;
+				}
 			}
+		
+		for (Coords iter : Coord.breakingList) {
+			if(y<iter.getY()){
 			Coord.breakingList.remove(iter);
-		}
-		 }
+			}
+		}	 
 	 }
 }

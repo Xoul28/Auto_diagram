@@ -21,6 +21,7 @@ public class Component extends JPanel{
 		 Graphics2D g2d = (Graphics2D)g;
 		 g2d.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
 		 g2d.setColor(Color.black);
+		 Block.breakinthelaw = 1;
 		 Coords c = new Coords(getWidth()/2,50);
 /*
 		 Block b6[] = new Block[2];
