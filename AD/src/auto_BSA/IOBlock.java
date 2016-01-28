@@ -40,6 +40,12 @@ public class IOBlock extends Block {
 		return 0;
 	}
 
+	@Override
+	public boolean isThereABreakInElseBody() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 
 }

@@ -40,8 +40,13 @@ public class WhileCycle extends Cycles{
 			 }else{
 				 Coord.setY(Coord.getY()-50-20); 
 				 Coord.setextremeDY(Coord.getextremeDY()-50-20);
-			 }
-			 Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord));
+			 }	if(isThereABreakInBody()){
+					nextArrow(retCoord, g2d);
+					Coord.setY(Coord.getextremeDY()+50);
+				}else{
+			     
+				 Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord)+breakMargin());
+				 drawbreak(Coord, g2d, retCoord.getY());
 			  Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin());
 			  Coord.setextremeDY(Coord.getextremeDY()+5);
 			  
@@ -50,6 +55,7 @@ public class WhileCycle extends Cycles{
 		     Coord.setextremeDY(Coord.getextremeDY()+10);
 			  Coord.setextremeLX(Coord.getextremeLX()+getCyclesMargin());
 			  Coord.setextremeRX(Coord.getX()+50);
+				}
 		}
 	
 	}

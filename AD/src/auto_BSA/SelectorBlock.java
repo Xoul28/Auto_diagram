@@ -35,6 +35,9 @@ public class SelectorBlock extends FunBlock {
 				 Coord.setY(Coord.getY()-50-20); 
 				 Coord.setextremeDY(Coord.getextremeDY()-50-20);
 			 }
+			 if(isThereABreakInElseBody() && isThereABreakInBody()){
+			   Coord.breakingList.removeLast();
+			 }
 			 int marg = 50;
 
 			 retCoord.setextremeRX(Coord.getextremeRX() + getwidth(Coord) - minusbody(Coord) - marg  );
@@ -64,6 +67,9 @@ public class SelectorBlock extends FunBlock {
 			 }else{
 				 g2d.drawLine(retCoord.getX(), retCoord.getextremeDY()-50, retCoord.getX(), Coord.getextremeDY());
 			 }
+			 if(isThereABreakInElseBody() && isThereABreakInBody()){
+				   retCoord.breakingList.removeLast();
+				 }
 			 for (Coords iter : retCoord.breakingList) {
 					Coord.breakingList.add(iter);
 				}
@@ -84,11 +90,24 @@ public class SelectorBlock extends FunBlock {
 					 if(elsebody[i].isBreak() == 1){
 						 break;
 					 }
+					 if(elsebody[i].isIf() == 1){
+						 if(elsebody[i].isThereABreakInBody() && elsebody[i].isThereABreakInElseBody())
+						 {
+							 elsebody[i+1] = new BreakLine();
+						 }
+					 }
 				 retCoord.setY(retCoord.getY()+50+20);
 				 retCoord.setY(retCoord.getextremeDY()+25);
 				 retCoord.setextremeDY(retCoord.getextremeDY()+50);	
 			 }else {
-				 elsebody[i].paint(retCoord, g2d, false);   
+				 elsebody[i].paint(retCoord, g2d, false); 
+				 if(elsebody[i].isIf() == 1){
+					 if(elsebody[i].isThereABreakInBody() && elsebody[i].isThereABreakInElseBody())
+					 {
+						 elsebody[i] = new BreakLine();
+						 elsebody[i].paint(retCoord, g2d, true);
+					 }
+				 }
 			 }
 		 }
 	 }
@@ -151,6 +170,8 @@ public class SelectorBlock extends FunBlock {
     		 
     	 }
     	 if(isThereABreakInElseBody() && isThereABreakInBody()){
+    		 g2d.drawLine(retCoord.getX(), retCoord.getextremeDY(), retCoord.getX(), retCoord.getextremeDY()-7);
+    		 g2d.drawLine(Coord.getX(), Coord.getextremeDY(), Coord.getX(), Coord.getextremeDY()-7);
     		 if(Coord.getextremeDY()>=retCoord.getextremeDY()){
     			 g2d.drawLine(retCoord.getX(), retCoord.getextremeDY(), retCoord.getX(), Coord.getextremeDY()+10);
     			 Coord.setextremeDY(Coord.getextremeDY()+10) ;
@@ -234,6 +255,7 @@ public class SelectorBlock extends FunBlock {
 		}
 		return sum;
 	}
+    @Override
 	 public boolean isThereABreakInElseBody() {
 		 for (int i = 0; i < elsebody.length; i++) {
 			 if(elsebody[i].isBreak() == 1) {

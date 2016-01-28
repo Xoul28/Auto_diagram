@@ -17,10 +17,23 @@ public abstract class FunBlock extends Block{
 			 if(body[i].isBreak() != 0){
 				 break;
 			 }
+			 if(body[i].isIf() == 1){
+				 if(body[i].isThereABreakInBody() && body[i].isThereABreakInElseBody())
+				 {
+					 body[i+1] = new BreakLine();
+				 }
+			 }
 			 Coord.setY(Coord.getextremeDY()+25);
 			 Coord.setextremeDY(Coord.getextremeDY()+50);
 			 }else {
-			 body[i].paint(Coord,g2d,false);	 
+			 body[i].paint(Coord,g2d,false);	
+			 if(body[i].isIf() == 1){
+				 if(body[i].isThereABreakInBody() && body[i].isThereABreakInElseBody())
+				 {
+					 body[i] = new BreakLine();
+					 body[i].paint(Coord, g2d, true);
+				 }
+			 }
 			// Coord.setextremeDY(Coord.getextremeDY()+25);
 			 } 
 		 }	 
@@ -46,6 +59,7 @@ public abstract class FunBlock extends Block{
 	public int getelsecyclemargin(){
 		return 0;
 	}
+	@Override
 	 public boolean isThereABreakInBody() {
 		 for (int i = 0; i < body.length; i++) {
 			 if(body[i].isBreak() == 1) {
@@ -62,5 +76,10 @@ public abstract class FunBlock extends Block{
 			}
 		}
 		return 0; 
+	 }
+	 @Override
+	 public boolean isThereABreakInElseBody() {
+	
+		 return false;
 	 }
 }

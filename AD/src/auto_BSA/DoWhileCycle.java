@@ -46,12 +46,20 @@ public class DoWhileCycle extends Cycles{
 		    g2d.drawLine(Coord.getX(), Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()-HALFOFNORMALLENGHT, Coord.getY());
 					 
 		    drawCenteredLines(g2d, line, Coord.getX(), Coord.getY());
-		 	nextArrow(Coord, g2d);
-			Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord));
+		 	nextArrow(Coord, g2d);	if(isThereABreakInBody()){
+				nextArrow(retCoord, g2d);
+				Coord.setY(Coord.getextremeDY()+50);
+			}else{
+		     
+			 Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord)+breakMargin());
+			 drawbreak(Coord, g2d, retCoord.getY());
 		    Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin()); 
+		    
 		    ret.returning(Coord, retCoord, g2d);   
+		    
 		    Coord.setextremeLX(Coord.getextremeLX()+getCyclesMargin());
 			Coord.setextremeRX(Coord.getX()+50);
+			}
 		}
 	
 		@Override

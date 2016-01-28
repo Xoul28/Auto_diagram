@@ -47,4 +47,10 @@ public class BreakLine extends Block{
 	public  int breakMargin(){
 		return 30;
 	}
+
+	@Override
+	public boolean isThereABreakInElseBody() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

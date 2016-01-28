@@ -49,6 +49,11 @@ public abstract int getCyclesMargin();
 public  int breakMargin(){
 	return 0;
 }
+public boolean isThereABreakInBody() {
+	
+	return false;
+}
+public abstract boolean isThereABreakInElseBody();
 }
 
  
