@@ -382,10 +382,15 @@ public class Interpreter {
 				blocks.add(new FunctionCall(statement.toString()));
 			} else {
 				String statementStr = toFlowchartString(statement.toString().trim());
+				Pattern returnStatement = Pattern.compile("^return(\\W+.*|$)");
+				Matcher matcher = returnStatement.matcher(statementStr);
 				if (statementStr.equals("break")) {
 					blocks.add(new BreakLine());
 				} else if (statementStr.equals("continue")) {
 					blocks.add(new ContinueLine());
+				} else if (matcher.matches()) {
+					// matcher.group(1).trim() is under return statement
+					blocks.add(new ReturnStatement(statementStr));
 				} else {
 					blocks.add(new Statement(statementStr));
 				}
