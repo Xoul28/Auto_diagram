@@ -2,12 +2,14 @@ package auto_BSA;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,16 +18,21 @@ public class DrawerSimple extends JFrame {
 	public DrawerSimple(Block function){
 		super("Block");
         JPanel cp = new JPanel(new BorderLayout());
-        cp.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5),
-                BorderFactory.createLineBorder(Color.black)));
-        setContentPane(cp);
-        //cp.add(new SelectorBlock("����� ���"), BorderLayout.CENTER);
-        //cp.add(new Cycle("����� ���"), BorderLayout.CENTER);
-        cp.add(new Component(function), BorderLayout.CENTER);
+        cp.setOpaque(true);
         cp.setBackground(Color.white);
-        setSize(700, 1000);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setContentPane(cp);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
+        cp.add(new Component(function, cp), BorderLayout.CENTER);
+    
+		
+        
+        setSize(400, 2000);
+      setLocationRelativeTo(null);
+        
+     
+    	
+        
     }
 
 }

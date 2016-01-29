@@ -1,6 +1,9 @@
 package auto_BSA;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+
+import org.w3c.dom.css.RGBColor;
 
 public class Function extends FunBlock{
 

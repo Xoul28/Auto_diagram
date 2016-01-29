@@ -76,6 +76,8 @@ public abstract class Cycles extends FunBlock {
 				}else{
 					
 					g2d.drawLine(iter.getX(), iter.getY(), iter.getX()-6, iter.getY());
+					g2d.drawLine(iter.getX()-6+2, iter.getY()-2, iter.getX()-6, iter.getY());
+					g2d.drawLine(iter.getX()-6+2, iter.getY()+2, iter.getX()-6, iter.getY());
 					g2d.drawOval(iter.getX()-31, iter.getY()-12, 25, 25);
 					drawCenteredString(g2d, Block.breakinthelaw.toString(), iter.getX()-18, iter.getY());
 					int m = 0;
