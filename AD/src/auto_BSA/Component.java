@@ -34,11 +34,10 @@ public class Component extends JPanel{
 		 g2d.setColor(Color.black);
 		 Block.breakinthelaw = 1;
 		 Coords c = new Coords(getWidth()/2,50);
-		   BufferedImage image =(BufferedImage) 
-			        cp.createImage(1000, 2500);
-		   g2d = image.createGraphics();	
-		  
-		
+		   BufferedImage image = //(BufferedImage) cp.createImage(1000, 2500);
+				   new BufferedImage(1000, 2500, BufferedImage.TYPE_INT_ARGB);
+		   g2d = image.createGraphics();
+		   g2d.setColor(Color.BLACK);
 		   function.paint(c, g2d,true);
 	   
 	     g2d.dispose();
