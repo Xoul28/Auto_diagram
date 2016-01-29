@@ -14,13 +14,17 @@ public abstract class FunBlock extends Block{
 		 for(int i = 0 ; i < body.length ; i++) {
 			 if(i!=(body.length-1)) {
 			 body[i].paint(Coord,g2d,true); 
-			 if(body[i].isBreak() != 0){
+			 if(body[i].isBreak() != 0 || body[i].isContinue() != 0){
 				 break;
 			 }
 			 if(body[i].isIf() == 1){
 				 if(body[i].isThereABreakInBody() && body[i].isThereABreakInElseBody())
 				 {
 					 body[i+1] = new BreakLine();
+				 }
+				 if(body[i].isThereAContinueInBody() && body[i].isThereAContinueInElseBody())
+				 {
+					 body[i+1] = new ContinueLine();
 				 }
 			 }
 			 Coord.setY(Coord.getextremeDY()+25);
@@ -33,6 +37,12 @@ public abstract class FunBlock extends Block{
 					 body[i] = new BreakLine();
 					 body[i].paint(Coord, g2d, true);
 				 }
+				 if(body[i].isThereAContinueInBody() && body[i].isThereAContinueInElseBody())
+				 {
+					 body[i] = new ContinueLine();
+					 body[i].paint(Coord, g2d, true);
+				 }
+				 
 			 }
 			// Coord.setextremeDY(Coord.getextremeDY()+25);
 			 } 
@@ -89,6 +99,15 @@ public abstract class FunBlock extends Block{
 	 @Override
 	 public boolean isThereABreakInElseBody() {
 	
+		 return false;
+	 }
+	 @Override
+	 public boolean isThereAContinueInBody() {
+		 for (int i = 0; i < body.length; i++) {
+			 if(body[i].isContinue() == 1) {
+				 return true;
+			 }
+		 }
 		 return false;
 	 }
 }

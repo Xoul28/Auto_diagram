@@ -55,5 +55,10 @@ public class ContinueLine extends Block {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+	public int isContinue() {
+		
+		return 1;
+	}
 
 }

@@ -53,8 +53,20 @@ public boolean isThereABreakInBody() {
 	
 	return false;
 }
+public boolean isThereAContinueInBody() {
+	
+	return false;
+}
+public boolean isThereAContinueInElseBody() {
+	
+	return false;
+}
 public abstract boolean isThereABreakInElseBody();
 public int continueMargin() {
+	return 0;
+}
+public int isContinue() {
+	
 	return 0;
 }
 }

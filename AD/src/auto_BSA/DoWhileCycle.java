@@ -1,6 +1,7 @@
 package auto_BSA;
 
 import java.awt.Graphics2D;
+import java.util.Iterator;
 
 public class DoWhileCycle extends Cycles{
 	  
@@ -52,14 +53,29 @@ public class DoWhileCycle extends Cycles{
 			}else{
 		     
 			 Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord)+breakMargin());
+			    if(breakMargin()==30){
+			 		int min = 100000;
+			 		for (Coords iter : Coord.breakingList) {
+						if(iter.getY()<min){
+							min = iter.getY();
+						}
+					}
+			 		g2d.drawLine(Coord.getextremeRX(), min, Coord.getextremeRX(), Coord.getY()+35);
+			 		g2d.drawLine(Coord.getX(), Coord.getY()+35, Coord.getextremeRX(), Coord.getY()+35);
+			 		g2d.drawLine(Coord.getX(), Coord.getY()+35, Coord.getX()+2, Coord.getY()+37);
+			 		g2d.drawLine(Coord.getX(), Coord.getY()+35, Coord.getX()+2, Coord.getY()+33);
+			 		
+			 	}
 			 drawbreak(Coord, g2d, retCoord.getY());
-		    Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin()); 
-		    
+			 
+		    Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin()-continueMargin()); 
+		    drawContinue(Coord, g2d, retCoord.getY());
 		    ret.returning(Coord, retCoord, g2d);   
-		    
+		
 		    Coord.setextremeLX(Coord.getextremeLX()+getCyclesMargin());
 			Coord.setextremeRX(Coord.getX()+50);
 			}
+		 	
 		}
 	
 		@Override

@@ -47,7 +47,8 @@ public class WhileCycle extends Cycles{
 			     
 				 Coord.setextremeRX(Coord.getextremeRX()+getCyclesMargin()+getwidth(Coord)+breakMargin());
 				 drawbreak(Coord, g2d, retCoord.getY());
-			  Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin());
+			  Coord.setextremeLX(Coord.getextremeLX()-getCyclesMargin()-continueMargin());
+			  drawContinue(Coord, g2d, retCoord.getY());
 			  Coord.setextremeDY(Coord.getextremeDY()+5);
 			  
 		     ret.returning(Coord, retCoord, g2d);   
