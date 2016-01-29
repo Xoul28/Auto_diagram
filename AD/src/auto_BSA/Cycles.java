@@ -63,4 +63,39 @@ public abstract class Cycles extends FunBlock {
 			}
 		}	 
 	 }
+	 public void drawContinue(Coords Coord,Graphics2D g2d,int y){
+		 
+			
+		for (Coords iter : Coord.continueList) {
+			if(y<iter.getY()){
+				
+				if(iter.getX() <= Coord.getextremeLX()+50+getCyclesMargin()+continueMargin()){
+					g2d.drawLine(iter.getX(), iter.getY(), Coord.getextremeLX(), iter.getY());
+				}else{
+					
+					g2d.drawLine(iter.getX(), iter.getY(), iter.getX()-6, iter.getY());
+					g2d.drawOval(iter.getX()-6, iter.getY()-12, 25, 25);
+					drawCenteredString(g2d, Block.breakinthelaw.toString(), iter.getX()-18, iter.getY());
+					int m = 0;
+					for (Coords iter_f : Coord.continueList) {
+						if(iter.getY()==iter_f.getY()&& iter.getX()!=iter_f.getX()){
+							m-=27;
+						}
+					}
+					iter.setY(iter.getY()+m);
+					
+					drawCenteredString(g2d, Block.breakinthelaw.toString(), Coord.getextremeLX()+18, iter.getY());
+					g2d.drawLine(Coord.getextremeLX()+6, iter.getY(), Coord.getextremeLX(), iter.getY());
+					g2d.drawOval(Coord.getextremeLX()+31, iter.getY()-12, 25, 25);
+				}	
+				Block.breakinthelaw =Block.breakinthelaw.intValue()+ 1;
+				}
+			}
+		
+		for (Coords iter : Coord.continueList) {
+			if(y<iter.getY()){
+			Coord.continueList.remove(iter);
+			}
+		}	 
+	 }
 }

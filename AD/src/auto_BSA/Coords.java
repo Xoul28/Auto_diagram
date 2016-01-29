@@ -46,6 +46,7 @@ public class Coords {
 
 	//queue of break-_-
 	LinkedList<Coords> breakingList = new LinkedList<Coords>();
+	LinkedList<Coords> continueList = new LinkedList<Coords>();
 	
 	public void setextremeRX(int extremeRX){
 		this.extremeRX = extremeRX;

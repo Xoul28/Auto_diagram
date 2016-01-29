@@ -54,6 +54,9 @@ public boolean isThereABreakInBody() {
 	return false;
 }
 public abstract boolean isThereABreakInElseBody();
+public int continueMargin() {
+	return 0;
+}
 }
 
  

@@ -279,4 +279,19 @@ public class SelectorBlock extends FunBlock {
 		 
 		return 0; 
 	 }
+	 @Override
+	 public int continueMargin(){
+		 for (int i = 0; i < body.length; i++) {
+			if(body[i].continueMargin() == 30){
+				return 30;
+			}
+		}
+		 for (int i = 0; i < elsebody.length; i++) {
+				if(elsebody[i].continueMargin() == 30){
+					return 30;
+				}
+			}
+		 
+		return 0; 
+	 }
 }
