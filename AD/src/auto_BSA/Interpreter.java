@@ -17,6 +17,7 @@ public class Interpreter {
 	private int pos;
 	private int len;
 	private boolean flowchartMode;
+	private Set<String> functions;
 	
 	static {
 		keywords = new HashSet<String>();
@@ -82,6 +83,7 @@ public class Interpreter {
 		this.pos = 0;
 		this.len = code.length();
 		this.flowchartMode = flowchartMode;
+		this.functions = new HashSet<String>();
 	}
 	
 	public Interpreter(String code) {
@@ -232,6 +234,18 @@ public class Interpreter {
 		return statement.trim();
 	}
 	
+	private boolean isFunctionCall(String statement) {
+		Pattern funcName = Pattern.compile("\\W{0,1}(\\w+)\\s*\\(");
+		Matcher matcher = funcName.matcher(statement);
+		while (matcher.find()) {
+			String func = matcher.group(1);
+			if (functions.contains(func)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void deleteComments() {
 		Pattern directive = Pattern.compile("#.*$", Pattern.MULTILINE);
 		Matcher matcher = directive.matcher(code);
@@ -248,13 +262,17 @@ public class Interpreter {
 		len = code.length();
 	}
 	
-	public List<Block> analyze() {
+	public List<Block> analyze(String name) {
 		while (!isEnd()) {
-			List<Block> b = readFunction();
+			List<Block> b = readFunction(name);
 			return b;
 		}
 		List<Block> b = new LinkedList<Block>();
 		return b;
+	}
+	
+	public List<Block> analyze() {
+		return analyze("");
 	}
 	
 	private List<Block> readBlock(String blockType) {
@@ -360,6 +378,8 @@ public class Interpreter {
 			List<Block> blocks = new LinkedList<Block>();
 			if (isIOBlock(statement.toString()) && flowchartMode) {
 				blocks.add(new IOBlock(toIOBlockString(statement.toString())));
+			} else if (isFunctionCall(statement.toString())) {
+				blocks.add(new FunctionCall(statement.toString()));
 			} else {
 				String statementStr = toFlowchartString(statement.toString().trim());
 				if (statementStr.equals("break")) {
@@ -376,7 +396,7 @@ public class Interpreter {
 		// if it is {expression1; ...}
 		nextChar(); // skip first '{'
 		List<Block> blocks = readCompoundStatement();
-		nextChar(); // skip }
+		nextChar(); // skip '}'
 		return blocks;
 	}
 	
@@ -424,30 +444,50 @@ public class Interpreter {
 			blocks.add(readCase());
 			skipWhitespaces();
 		}
-		nextChar(); // skip }
+		nextChar(); // skip '}'
 		return blocks;
 	}
 	
-	private List<Block> readFunction() {
+	private List<Block> readFunction(String name) {
 		StringBuilder statement = new StringBuilder();
+		Pattern funcName = Pattern.compile("\\W{0,1}(\\w+)\\s*\\(");
 		while (!isEnd()) {
 			char current = getCurrentChar();
 			// it is a 'statement ... ;', not a function
 			if (current == ';') {
+				Matcher matcher = funcName.matcher(statement.toString().trim());
+				if (matcher.find()) {
+					String nameOfFunction = matcher.group(1);
+					functions.add(nameOfFunction);
+				}
 				statement.setLength(0);
 			} else if (current == '{') { // it is a function declaration
 				nextChar(); // skip first '{'
 				List<Block> blocks = readCompoundStatement();
-				nextChar(); // skip }
+				nextChar(); // skip '}'
 				List<Block> function = new LinkedList<Block>();
-				function.add(new Function(blocks.toArray(new Block[0]), statement.toString().trim()));
-				return function;
+				// check name of function
+				Matcher matcher = funcName.matcher(statement.toString().trim());
+				if (matcher.find()) {
+					String nameOfFunction = matcher.group(1);
+					functions.add(nameOfFunction);
+					if (name.equals(nameOfFunction) || name.equals("")) {
+						function.add(new Function(blocks.toArray(new Block[0]),
+									 statement.toString().trim()));
+						return function;
+					}
+				}
+				statement.setLength(0);
 			} else {
 				statement.append(current);
 			}
 			nextChar();
 		}
 		return new LinkedList<Block>();
+	}
+	
+	private List<Block> readFunction() {
+		return readFunction("");
 	}
 	
 }

@@ -9,6 +9,11 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
+		if (args.length == 0) {
+			System.out.println("Command line arguments:");
+			System.out.println("nameOfFileToRead nameOfFunction");
+			System.out.println("if nameOfFunction is missing, reading 1st function in the file");
+		}
 		if (args.length > 0) {
 			FileReader file = new FileReader(args[0]);
 			Scanner scanner = new Scanner(file);
@@ -18,7 +23,12 @@ public class Main {
 			}
 			Interpreter icpp = new Interpreter(code.toString());
 			icpp.deleteComments();
-			Block[] b = icpp.analyze().toArray(new Block[0]);
+			Block[] b;
+			if (args.length > 1) {
+				b = icpp.analyze(args[1]).toArray(new Block[0]);
+			} else {
+				b = icpp.analyze().toArray(new Block[0]);				
+			}
 			scanner.close();
 			new DrawerSimple(b[0]).setVisible(true);
 		}
