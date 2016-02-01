@@ -2,7 +2,7 @@ package auto_BSA;
 
 import java.awt.Graphics2D;
 
-public class EmptyBlock extends Block {
+public class EmptyBlock extends Statement {
 
 	@Override
 	public void paint(Coords Coord, Graphics2D g2d, boolean nextlinedraw) {
@@ -10,28 +10,4 @@ public class EmptyBlock extends Block {
 		 nextArrow(Coord, g2d);
 		 Coord.setextremeDY(Coord.getextremeDY()+20);
 	}
-
-	@Override
-	public int getwidth(Coords Coord) {
-		return 0;
-	}
-
-	@Override
-	public int isIf() {
-		return 0;
-	}
-
-	@Override
-	public int getCyclesMargin() {
-		return 0;
-	}
-
-	@Override
-	public boolean isThereABreakInElseBody() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-
 }
