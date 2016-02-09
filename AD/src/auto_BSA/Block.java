@@ -89,4 +89,22 @@ public abstract class Block {
 
 		return 0;
 	}
+	public int isReturn(){
+		return 0;
+	}
+
+	public boolean isThereAReturnInBody() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isThereAReturnInElseBody() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void setNoRet() {
+		// TODO Auto-generated method stub
+		
+	}
 }

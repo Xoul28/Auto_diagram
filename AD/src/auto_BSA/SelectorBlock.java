@@ -1,9 +1,11 @@
 package auto_BSA;
 
 import java.awt.Graphics2D;
+import java.util.Arrays;
 
 public class SelectorBlock extends FunBlock {
 	Block elsebody[];
+	private boolean isret = true;
 
 	public SelectorBlock(Block[] body, String line, Block[] elsebody) {
 		super(body, line);
@@ -92,8 +94,15 @@ public class SelectorBlock extends FunBlock {
 		for (Coords iter : retCoord.continueList) {
 			Coord.continueList.add(iter);
 		}
-
+		for (Coords iter : retCoord.returnList) {
+			Coord.returnList.add(iter);
+		}
+		
+		if(isret)
 		drawEnd(Coord, retCoord, g2d);
+		else{
+			
+		}
 
 		// Coord.setextremeRX(Coord.getX()+50);
 	}
@@ -102,7 +111,7 @@ public class SelectorBlock extends FunBlock {
 		for (int i = 0; i < elsebody.length; i++) {
 			if (i != (elsebody.length - 1)) {
 				elsebody[i].paint(retCoord, g2d, true);
-				if (elsebody[i].isBreak() == 1 || elsebody[i].isContinue() != 0) {
+				if (elsebody[i].isBreak() == 1 || elsebody[i].isContinue() != 0 || elsebody[i].isReturn() !=0) {
 					break;
 				}
 				if (elsebody[i].isIf() == 1) {
@@ -113,6 +122,12 @@ public class SelectorBlock extends FunBlock {
 					if (elsebody[i].isThereAContinueInBody()
 							&& elsebody[i].isThereAContinueInElseBody()) {
 						elsebody[i + 1] = new ContinueLine();
+					}
+					if (elsebody[i].isThereAReturnInBody()
+							&& elsebody[i].isThereAReturnInElseBody()) {
+						elsebody[i].setNoRet();
+						elsebody[i+1] = new ReturnStatement("");
+						break;
 					}
 				}
 				retCoord.setY(retCoord.getY() + 50 + 20);
@@ -131,12 +146,22 @@ public class SelectorBlock extends FunBlock {
 						elsebody[i] = new ContinueLine();
 						elsebody[i].paint(retCoord, g2d, true);
 					}
+					if (elsebody[i].isThereAReturnInBody()
+							&& elsebody[i].isThereAReturnInElseBody()) {
+						elsebody[i].setNoRet();
+						Block blad[] = new Block[elsebody.length+1];
+						blad = Arrays.copyOf(elsebody,elsebody.length+1);
+						elsebody = new Block[blad.length];
+						elsebody = Arrays.copyOf(blad, blad.length);
+						elsebody[i+1] = new ReturnStatement("");
+						break;
+					}
 				}
 			}
 		}
 	}
      private void drawEnd(Coords Coord,Coords retCoord,Graphics2D g2d){
-    	 if(!isThereABreakInBody()&&!isThereABreakInElseBody()&&!isThereAContinueInBody()&&!isThereAContinueInElseBody()){
+    	 if(!isThereABreakInBody()&&!isThereABreakInElseBody()&&!isThereAContinueInBody()&&!isThereAContinueInElseBody()&&!isThereAReturnInBody()&&!isThereAReturnInElseBody()){
 		 if(Coord.getextremeDY()>=retCoord.getextremeDY()){
 			 g2d.drawLine(retCoord.getX(), retCoord.getextremeDY(), retCoord.getX(), Coord.getextremeDY()+10);
 			 Coord.setextremeDY(Coord.getextremeDY()+10) ;
@@ -155,7 +180,7 @@ public class SelectorBlock extends FunBlock {
 		 Coord.setextremeDY(Coord.getextremeDY()+10) ;
 		 retCoord.setextremeDY(retCoord.getextremeDY()+10) ;    
 	 }
-    	 if(isThereABreakInBody()&&!isThereABreakInElseBody()||(isThereAContinueInBody()&&!isThereAContinueInElseBody())){
+    	 if(isThereABreakInBody()&&!isThereABreakInElseBody()||(isThereAContinueInBody()&&!isThereAContinueInElseBody())||(isThereAReturnInBody()&&!isThereAReturnInElseBody())){
     		 if(retCoord.getextremeDY()>Coord.getextremeDY()){
     			g2d.drawLine(retCoord.getX(), retCoord.getextremeDY(), retCoord.getX(), retCoord.getextremeDY()+15);
     		 	Coord.setextremeDY(retCoord.getextremeDY()+15) ;
@@ -184,7 +209,8 @@ public class SelectorBlock extends FunBlock {
     		 }
 		}
 		if (isThereABreakInElseBody() && !isThereABreakInBody()
-				|| (!isThereAContinueInBody() && isThereAContinueInElseBody())) {
+				|| (!isThereAContinueInBody() && isThereAContinueInElseBody())
+				||(!isThereAReturnInBody()&&isThereAReturnInElseBody())) {
 			if (retCoord.getextremeDY() < Coord.getextremeDY()) {
 				Coord.setextremeDY(Coord.getextremeDY() + 20);
 				g2d.drawLine(Coord.getX(), Coord.getextremeDY() - 20,
@@ -197,7 +223,8 @@ public class SelectorBlock extends FunBlock {
 
 		}
 		if (isThereABreakInElseBody() && isThereABreakInBody()
-				|| (isThereAContinueInBody() && isThereAContinueInElseBody())) {
+				|| (isThereAContinueInBody() && isThereAContinueInElseBody())
+				||(isThereAReturnInBody() && isThereAReturnInElseBody())) {
 			g2d.drawLine(retCoord.getX(), retCoord.getextremeDY(),
 					retCoord.getX(), retCoord.getextremeDY() - 7);
 			g2d.drawLine(Coord.getX(), Coord.getextremeDY(), Coord.getX(),
@@ -244,8 +271,12 @@ public class SelectorBlock extends FunBlock {
 
 	@Override
 	public int getwidth(Coords Coord) {
-
-		int sum = 115;
+		int sum = 0;
+//		if (elsebody.length==0 || (elsebody.length==1 && (isThereABreakInElseBody()||isThereAContinueInElseBody()))){
+//			sum = 65;
+//		}else{
+		 sum = 115;
+//		}
 
 		int k = 0;
 		for (int i = 0; i < elsebody.length; i++) {
@@ -346,5 +377,27 @@ public class SelectorBlock extends FunBlock {
 			}
 		}
 		return false;
+	}
+	@Override
+	public boolean isThereAReturnInElseBody() {
+		for (int i = 0; i < elsebody.length; i++) {
+			if (elsebody[i].isReturn() == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
+	@Override
+	public boolean isThereAReturnInBody() {
+		for (int i = 0; i < body.length; i++) {
+			if (body[i].isReturn() == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
+	@Override
+	public void setNoRet(){
+		isret = false;
 	}
 }

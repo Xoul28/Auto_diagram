@@ -25,19 +25,36 @@ public class Function extends FunBlock {
 		Coord.setextremeRX(Coord.getX() + 50);
 		Coord.setextremeLX(Coord.getX() - 50);
 		drawbody(Coord, g2d);
+		if(isThereAReturnInBody()){
+			Coord.returnList.removeLast();
+			Coord.setextremeDY(Coord.getextremeDY()-15);
+		}
 		drawComments(g2d, Coord);
 		removeComments();
 		Coord.setY(Coord.getextremeDY());
+		drawReturns(g2d, Coord);
+		//Coord.returnList.clear();
 		Coord.setY(Coord.getY() + 12);
+		
 		g2d.drawRoundRect(Coord.getX() - 50, Coord.getY() - 12, 100, 25, 25, 25);
 		drawCenteredString(g2d, "Конец", Coord.getX(), Coord.getY());
 	}
 
 	private void removeComments() {
 		CommentList.clear();
-
 	}
-
+	private void drawReturns(Graphics2D g2d, Coords Coord) {
+		for (Coords Return : Coord.returnList) {
+			 g2d.drawOval(Return.getX()-13, Return.getY(), 25, 25);
+			 drawCenteredString(g2d, breakinthelaw.toString(), Return.getX() , Return.getY()+11);
+			 g2d.drawLine(Coord.getX(), Coord.getY(), Coord.getX(), Coord.getY()+40);
+			 g2d.drawLine(Coord.getX()-20, Coord.getY()+20, Coord.getX(), Coord.getY()+20);
+			 g2d.drawOval(Coord.getX()-45, Coord.getY()+7, 25, 25);
+			 drawCenteredString(g2d, breakinthelaw.toString(), Coord.getX()-33 , Coord.getY()+18);
+			 Coord.setY(Coord.getY()+40);
+			 Block.breakinthelaw =Block.breakinthelaw.intValue()+ 1;
+		}
+	}
 	private void drawComments(Graphics2D g2d, Coords Coord) {
 		for (Comment comment : CommentList) {
 			int m = 0, n = 0;
