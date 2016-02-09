@@ -2,6 +2,7 @@ package auto_BSA;
 
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Panel;
@@ -39,6 +40,16 @@ public class Component extends JPanel{
 		//   g2d = image.createGraphics();
 		   g2d.setColor(Color.BLACK);
 		   function.paint(c, g2d,true);
+		   /*
+		   try {
+			   Graphics2D gg = (Graphics2D)g;
+			   //gg.setFont(gg.getFont().deriveFont(72.0f));
+			//MathExpression expression = MathExpressionDrawer.Parse("((pow(5,3/2))/(exp(0.7)+abs(r+2))+1/2/pow(3,3))", gg);
+			   MathExpression expression = MathExpressionDrawer.Parse("((pow(5,3/2))/(exp(0.7)+abs(r+2))+1/2/pow(3,3))", gg);
+			expression.draw(gg, 50, 300);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} */
 	   
 	     g2d.dispose();
 	     try {
