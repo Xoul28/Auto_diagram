@@ -40,7 +40,7 @@ public class Component extends JPanel{
 		//   g2d = image.createGraphics();
 		   g2d.setColor(Color.BLACK);
 		   function.paint(c, g2d,true);
-		   
+		   /*
 		   try {
 			   Graphics2D gg = (Graphics2D)g;
 			   //gg.setFont(gg.getFont().deriveFont(72.0f));
@@ -49,7 +49,7 @@ public class Component extends JPanel{
 			expression.draw(gg, 50, 300);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} */
 	   
 	     g2d.dispose();
 	     try {
