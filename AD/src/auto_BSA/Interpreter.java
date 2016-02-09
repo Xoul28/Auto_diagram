@@ -379,7 +379,7 @@ public class Interpreter {
 			if (isIOBlock(statement.toString()) && flowchartMode) {
 				blocks.add(new IOBlock(toIOBlockString(statement.toString())));
 			} else if (isFunctionCall(statement.toString())) {
-				blocks.add(new FunctionCall(statement.toString()));
+				blocks.add(new FunctionCall(toFlowchartString(statement.toString())));
 			} else {
 				String statementStr = toFlowchartString(statement.toString().trim());
 				Pattern returnStatement = Pattern.compile("^return(\\W+.*|$)");
