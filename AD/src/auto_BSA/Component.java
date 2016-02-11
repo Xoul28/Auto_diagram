@@ -37,9 +37,12 @@ public class Component extends JPanel{
 		 Coords c = new Coords(getWidth()/2,50);
 		   BufferedImage image = //(BufferedImage) cp.createImage(1000, 2500);
 				   new BufferedImage(1000, 2500, BufferedImage.TYPE_INT_ARGB);
-		  // g2d = image.createGraphics();
+		 Graphics2D g2 = image.createGraphics();
+		 
 		   g2d.setColor(Color.BLACK);
+		   g2.setColor(Color.BLACK);
 		   function.paint(c, g2d,true);
+		   function.paint(c, g2,true);
 		   /*
 		   try {
 			   Graphics2D gg = (Graphics2D)g;

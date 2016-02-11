@@ -23,7 +23,8 @@ public class SelectorBlock extends FunBlock {
 			 g2d.drawLine(Coord.getX()+HALFOFNORMALLENGHT, Coord.getY(), Coord.getX(), Coord.getY()+HALFOFNORMALHIGHT);
 			  //righttopline
 			 g2d.drawLine(Coord.getX(), Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()-HALFOFNORMALLENGHT, Coord.getY());
-			 
+			 g2d.drawString("да", Coord.getX()+HALFOFNORMALLENGHT-HALFOFNORMALHIGHT-17, Coord.getY()+HALFOFNORMALHIGHT+7);
+			 g2d.drawString("нет", Coord.getX()+HALFOFNORMALLENGHT-HALFOFNORMALHIGHT+30, Coord.getY()-HALFOFNORMALHIGHT+17);
 		if (line.length() > THEBIGGESTLENGHT) {
 			Function.CommentList.add(new Comment(line, Coord));
 		} else {

@@ -68,7 +68,7 @@ public class Function extends FunBlock {
 
 			g2d.drawLine(comment.Coord.getX()+HALFOFNORMALLENGHT, comment.Coord.getY(), comment.Coord.getX()+HALFOFNORMALLENGHT+3, comment.Coord.getY()-HALFOFNORMALHIGHT-n-7);
 			g2d.setColor(Color.white);
-			for (int i = comment.Coord.getY(); i > comment.Coord.getY()-HALFOFNORMALHIGHT-n-7; i-=8) {
+			for (int i = comment.Coord.getY()+2; i > comment.Coord.getY()-HALFOFNORMALHIGHT-n-7; i-=8) {
 				g2d.drawLine(comment.Coord.getX()+HALFOFNORMALLENGHT+1, i,comment.Coord.getX()+HALFOFNORMALLENGHT+5 , i);
 				g2d.drawLine(comment.Coord.getX()+HALFOFNORMALLENGHT+1, i+1,comment.Coord.getX()+HALFOFNORMALLENGHT+5 , i+1);
 			}
@@ -87,7 +87,7 @@ public class Function extends FunBlock {
 				g2d.drawLine(Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+25, i+1,Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+25+5 , i+1);
 			}
 			g2d.setColor(Color.black);
-			drawCenteredString(g2d, comment.line, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25+comment.line.length()/2*7, comment.Coord.getY()-m);
+			g2d.drawString(comment.line, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()+n+30, comment.Coord.getY()-m+6);
 			g2d.drawLine(Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25,comment.Coord.getY()-m+8, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25, comment.Coord.getY()-m-5);
 			g2d.drawLine(Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25, comment.Coord.getY()-m-5, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25+6, comment.Coord.getY()-m-5);
 			g2d.drawLine(Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25, comment.Coord.getY()-m+8, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25+6, comment.Coord.getY()-m+8);
