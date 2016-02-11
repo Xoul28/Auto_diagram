@@ -24,7 +24,9 @@ public class Parentheses extends MathExpression {
 		int w = arg.getWidth(g2d);
 		g2d.drawRoundRect(x, y - h / 2 + 1, w + 12, h - 2, 8, 8);
 		x += 5;
-		g2d.clearRect(x - 2, y - h / 2 + 1, w + 7, h - 1);
+		g2d.setColor(Color.white);
+		g2d.fillRect(x - 2, y - h / 2 + 1, w + 7, h - 1);
+		g2d.setColor(Color.black);
 		arg.draw(g2d, x, y);
 	}
 	

@@ -48,11 +48,11 @@ public class Component extends JPanel{
 			   Graphics2D gg = (Graphics2D)g;
 			   //gg.setFont(gg.getFont().deriveFont(72.0f));
 			//MathExpression expression = MathExpressionDrawer.Parse("((pow(5,3/2))/(exp(0.7)+abs(r+2))+1/2/pow(3,3))", gg);
-			   MathExpression expression = MathExpressionDrawer.Parse("((pow(5,3/2))/(exp(0.7)+abs(r+2))+1/2/pow(3,3))", gg);
-			expression.draw(gg, 50, 300);
+			   MathExpression expression = MathExpressionDrawer.Parse("exp(e)+sqrt(fabs(((sin(y)-x)*(cos(y)+x))/(pow(10,5)*log(3*x))))", gg);
+			expression.draw(gg, 500, 500);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} */
+		} //*/
 	   
 	     g2d.dispose();
 	     try {

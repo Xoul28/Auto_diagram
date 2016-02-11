@@ -16,30 +16,42 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 }
 //---------------------------------------------------------------------------
 
-double calculate()
+double calculate(double x, double y)
 {
-    return (sqrt(5) + sqrt(7)) / (7 + 5) +
-           (sqrt(2) + sqrt(8)) / (8 + 2) +
-           (sqrt(3) + sqrt(10)) / (10 + 3);
+    return exp((sin(y) - x) * (cos(y) + x)) +
+           sqrt(fabs(
+                     ((sin(y) - x) * (cos(y) + x)) /
+                     (pow(10, 5) * log(3 * x))
+           ));
 }
 
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
-double x = calculate();
-ShowMessage(FloatToStr(x));
+double x = StrToFloat(Edit1->Text);
+double y = StrToFloat(Edit2->Text);
+if (x != 0) {
+    double ans = exp((sin(y) - x) * (cos(y) + x)) +
+           sqrt(fabs(
+                     ((sin(y) - x) * (cos(y) + x)) /
+                     (pow(10, 5) * log(3 * x))
+           ));
+    ShowMessage(FloatToStr(ans));
+}
 }
 //---------------------------------------------------------------------------
 
-double arifm(double a, double b)
+double arifm(double a, double b, double c)
 {
-    return (a + b) / 2;
+    return (a + b + c) / 3;
 }
 
 void __fastcall TForm1::Button2Click(TObject *Sender)
 {
-double a = StrToFloat(Edit1->Text);
-double b = StrToFloat(Edit2->Text);
-double ans = arifm(4 * b - a, 2 * a + a) - arifm(a - b, pow(b, a - 2));
+double a = StrToFloat(Edit3->Text);
+double b = StrToFloat(Edit4->Text);
+double c = StrToFloat(Edit5->Text);
+double ans = arifm((a + b) / (a - c * b), b * b - 2 * a, 3 * pow(c, a - b)) -
+             arifm((c + a) / (a * b), sqrt(b) / pow(a, 1. / 3), pow(a, b + 1. / c));
 ShowMessage(FloatToStr(ans));
 }
 //---------------------------------------------------------------------------
@@ -54,50 +66,61 @@ if (CSpinEdit1->Text != "") {
 //---------------------------------------------------------------------------
 double *mas;
 
-void shift()
+void shift(int k)
 {
-for (int i = 1; i < n; i++) {
-    mas[i - 1] = mas[i];
+for (int i = 0; i < k; i++) {
+    double tmp = mas[0];
+    for (int j = 1; j < n; j++) {
+        mas[j - 1] = mas[j];
+    }
+    mas[n - 1] = tmp;
 }
-mas[n - 1] = 0;
 }
 
 void __fastcall TForm1::Button3Click(TObject *Sender)
 {
+int k = CSpinEdit2->Value;
 mas = new double[n];
 for (int i = 0; i < n; i++) {
     mas[i] = StrToFloat(StringGrid1->Cells[i][0]);
 }
-shift();
+shift(k);
 for (int i = 0; i < n; i++) {
     StringGrid1->Cells[i][0] = FloatToStr(mas[i]);
 }
 delete [] mas;
 }
 //---------------------------------------------------------------------------
-int reverse(int n)
+double perimeter(double w1, double w2, double h)
 {
-int ans = 0;
-while (n > 0) {
-    ans = ans * 10 + n % 10;
-    n /= 10;
-}
-return ans;
+double c = sqrt(pow(fabs(w1 - w2) / 2, 2) + pow(h, 2));
+return w1 + w2 + 2 * c;
 }
 
 void __fastcall TForm1::Button4Click(TObject *Sender)
 {
-const int N = 5;
-int numbers[N];
-for (int i = 0; i < N; i++) {
-    numbers[i] = StrToInt(Memo1->Lines->Strings[i]);
+const int N = 2;
+double w[N][2];
+double h[N];
+for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 2; j++) {
+        w[i][j] = StrToFloat(StringGrid2->Cells[j + 1][i + 1]);
+    }
+    h[i] = StrToFloat(StringGrid2->Cells[3][i + 1]);
 }
-for (int i = 0; i < N; i++) {
-    numbers[i] = reverse(numbers[i]);
+double s = 0;
+for (int i = 0; i < 2; i++) {
+    s += perimeter(w[i][0], w[i][1], h[i]);
 }
-Memo1->Clear();
-for (int i = 0; i < N; i++) {
-    Memo1->Lines->Add(IntToStr(numbers[i]));
+ShowMessage(FloatToStr(s));
 }
+//---------------------------------------------------------------------------
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+StringGrid2->Cells[1][0] = "Основание 1";
+StringGrid2->Cells[2][0] = "Основание 2";
+StringGrid2->Cells[3][0] = "Высота";
+StringGrid2->Cells[0][1] = "1";
+StringGrid2->Cells[0][2] = "2";
 }
 //---------------------------------------------------------------------------

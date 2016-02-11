@@ -87,7 +87,14 @@ public class Function extends FunBlock {
 				g2d.drawLine(Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+25, i+1,Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+25+5 , i+1);
 			}
 			g2d.setColor(Color.black);
-			g2d.drawString(comment.line, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()+n+30, comment.Coord.getY()-m+6);
+			int y = comment.Coord.getY()-m+6;
+			int x = Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()+n+30;
+			g2d.drawString(comment.line, x, y);
+			if (comment.mathExp != null) {
+				int w = g2d.getFontMetrics().stringWidth(comment.line);
+				int h = g2d.getFontMetrics().getAscent();
+				comment.mathExp.draw(g2d, x + w, y - h / 2);
+			}
 			g2d.drawLine(Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25,comment.Coord.getY()-m+8, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25, comment.Coord.getY()-m-5);
 			g2d.drawLine(Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25, comment.Coord.getY()-m-5, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25+6, comment.Coord.getY()-m-5);
 			g2d.drawLine(Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25, comment.Coord.getY()-m+8, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25+6, comment.Coord.getY()-m+8);
