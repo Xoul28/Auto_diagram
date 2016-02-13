@@ -28,5 +28,7 @@ public class IOBlock extends Statement {
 			nextArrow(Coord, g2d);
 			Coord.setextremeDY(Coord.getextremeDY() + 20);
 		}
+		
+		getwidth(Coord);
 	}
 }

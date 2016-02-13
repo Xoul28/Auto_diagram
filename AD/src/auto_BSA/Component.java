@@ -24,6 +24,8 @@ public class Component extends JPanel{
 	     this.cp.setBackground(Color.white);
 	   
 	 }
+	 	public static int theleftest = 1000000;
+		public static int therightest = 0;
   
 	 @Override
 	    protected void paintComponent(Graphics g) {
@@ -35,14 +37,19 @@ public class Component extends JPanel{
 		 g2d.setColor(Color.black);
 		 Block.breakinthelaw = 1;
 		 Coords c = new Coords(getWidth()/2,50);
+		 
+		 g2d.setColor(Color.BLACK);
+		 function.paint(c, g2d,true);
+		 Coords c1 = new Coords(theleftest,50);
+		// System.out.println(c.getX()-theleftest);
 		   BufferedImage image = //(BufferedImage) cp.createImage(1000, 2500);
-				   new BufferedImage(1000, 2500, BufferedImage.TYPE_INT_ARGB);
+				   new BufferedImage(therightest-theleftest, c.getextremeDY()+50, BufferedImage.TYPE_INT_ARGB);
 		 Graphics2D g2 = image.createGraphics();
 		 
-		   g2d.setColor(Color.BLACK);
+		  
 		   g2.setColor(Color.BLACK);
-		   function.paint(c, g2d,true);
-		   function.paint(c, g2,true);
+		   
+		   function.paint(c1, g2,true);
 		   /*
 		   try {
 			   Graphics2D gg = (Graphics2D)g;

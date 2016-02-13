@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 public abstract class Block {
 	public static Integer breakinthelaw = 1;
+	
 	final int HALFOFNORMALLENGHT = 50, HALFOFNORMALHIGHT = 25,
 			THEBIGGESTLENGHT = 16;
 	String line;
@@ -105,6 +106,17 @@ public abstract class Block {
 
 	public void setNoRet() {
 		// TODO Auto-generated method stub
+		
+	}
+	public void countingofbody(Coords Coord){
+		if(Coord.getextremeLX() < auto_BSA.Component.theleftest){
+			Component.theleftest = Coord.getextremeLX();
+		}	
+		if(Coord.getX()< auto_BSA.Component.theleftest){
+			Component.theleftest = Coord.getX();
+		}if(Coord.getextremeRX() > auto_BSA.Component.therightest){
+			Component.therightest = Coord.getextremeRX();
+		}
 		
 	}
 }

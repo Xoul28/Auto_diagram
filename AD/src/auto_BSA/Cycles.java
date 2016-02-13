@@ -95,6 +95,9 @@ public abstract class Cycles extends FunBlock {
 					
 					g2d.drawOval(Coord.getextremeLX()+6, iter.getY()-12, 25, 25);
 				}	
+				Coord.setextremeLX(Coord.getextremeLX()-6);
+				countingofbody(Coord);
+				Coord.setextremeLX(Coord.getextremeLX()+6);
 				Block.breakinthelaw =Block.breakinthelaw.intValue()+ 1;
 				}
 			}

@@ -25,6 +25,7 @@ public class BreakLine extends Statement {
 		Coord.breakingList.add(new Coords(Coord.getX(), Coord.getY()));
 		Coord.setY(Coord.getY() + 5);
 		Coord.setextremeDY(Coord.getY());
+		countingofbody(Coord);
 
 	}
 

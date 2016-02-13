@@ -27,6 +27,7 @@ public class Statement extends Block {
 			nextArrow(Coord, g2d);
 			Coord.setextremeDY(Coord.getextremeDY() + 20);
 		}
+		countingofbody(Coord);
 	}
 	
 	protected void drawContent(Coords Coord, Graphics2D g2d) {

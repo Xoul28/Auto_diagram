@@ -17,7 +17,7 @@ public class ContinueLine extends Statement {
 		Coord.continueList.add(new Coords(Coord.getX(), Coord.getY()));
 		Coord.setY(Coord.getY() + 5);
 		Coord.setextremeDY(Coord.getY());
-
+		countingofbody(Coord);
 	}
 
 	@Override

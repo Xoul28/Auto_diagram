@@ -86,7 +86,8 @@ public class DoWhileCycle extends Cycles{
 			Coord.setextremeLX(Coord.getextremeLX() + getCyclesMargin());
 			Coord.setextremeRX(Coord.getX() + 50);
 		}
-
+		countingofbody(Coord);
+		countingofbody(retCoord);
 	}
 
 	@Override

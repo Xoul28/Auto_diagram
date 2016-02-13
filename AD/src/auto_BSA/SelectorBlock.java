@@ -99,11 +99,14 @@ public class SelectorBlock extends FunBlock {
 			Coord.returnList.add(iter);
 		}
 		
+		
 		if(isret)
 		drawEnd(Coord, retCoord, g2d);
 		else{
-			
+			countingofbody(Coord);
+			countingofbody(retCoord);
 		}
+	
 
 		// Coord.setextremeRX(Coord.getX()+50);
 	}
@@ -256,6 +259,8 @@ public class SelectorBlock extends FunBlock {
 			retCoord.setextremeDY(retCoord.getextremeDY() + 10);
 
 		}
+		countingofbody(Coord);
+		countingofbody(retCoord);
 	}
 
 	@Override
