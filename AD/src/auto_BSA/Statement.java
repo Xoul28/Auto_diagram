@@ -44,11 +44,15 @@ public class Statement extends Block {
 				mathExp = MathExpressionDrawer.Parse(strEnd, g2d);
 				int w2 = mathExp.getWidth(g2d);
 				int sumw = w + w2;
-				if (w + w2 > HALFOFNORMALLENGHT * 2) {
+				int widthDecreasing = 0;
+				if (this instanceof FunctionCall) {
+					widthDecreasing = 10;
+				}
+				if (w + w2 > HALFOFNORMALLENGHT * 2 - widthDecreasing) {
 					// TODO тут создать комментарий с mathExp
 					Function.CommentList.add(new Comment(str, Coord, mathExp));
 				} else {
-					mathExp.draw(g2d, Coord.getX() - sumw / 2 + w, Coord.getY());
+					mathExp.draw(g2d, Coord.getX() - sumw / 2 + w, Coord.getY() + 1);
 					System.out.println(mathExp);
 					drawCenteredString(g2d, str, Coord.getX() - sumw / 2 + w / 2, Coord.getY());
 				}

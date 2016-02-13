@@ -93,7 +93,7 @@ public class Function extends FunBlock {
 			if (comment.mathExp != null) {
 				int w = g2d.getFontMetrics().stringWidth(comment.line);
 				int h = g2d.getFontMetrics().getAscent();
-				comment.mathExp.draw(g2d, x + w, y - h / 2);
+				comment.mathExp.draw(g2d, x + w, y - h / 2 + 1);
 			}
 			g2d.drawLine(Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25,comment.Coord.getY()-m+8, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25, comment.Coord.getY()-m-5);
 			g2d.drawLine(Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25, comment.Coord.getY()-m-5, Coord.getextremeRX()+getwidth(Coord)+breakMargin()+getCyclesMargin()-n+n+25+6, comment.Coord.getY()-m-5);

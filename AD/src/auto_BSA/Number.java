@@ -6,6 +6,9 @@ public class Number extends MathExpression {
 
 	public Number(String acc, String rest) {
 		super(acc, rest);
+		while (this.acc.endsWith(".") || this.acc.endsWith(".0")) {
+			this.acc = this.acc.substring(0, this.acc.length() - 1);
+		}
 	}
 
 	@Override

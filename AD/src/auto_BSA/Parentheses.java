@@ -16,16 +16,16 @@ public class Parentheses extends MathExpression {
 	@Override
 	public void draw(Graphics2D g2d, int x, int y) {
 		super.draw(g2d, x, y);
-		if (arg instanceof Operator && ((Operator) arg).isDivision()) {
-			arg.draw(g2d, x, y);
-			return;
-		}
+//		if (arg instanceof Operator && ((Operator) arg).isDivision()) {
+//			arg.draw(g2d, x, y);
+//			return;
+//		}
 		int h = arg.getHeight(g2d);
 		int w = arg.getWidth(g2d);
-		g2d.drawRoundRect(x, y - h / 2 + 1, w + 12, h - 2, 8, 8);
+		g2d.drawRoundRect(x, y - h / 2 + 1, w + 9, h - 2, 8, 8);
 		x += 5;
 		g2d.setColor(Color.white);
-		g2d.fillRect(x - 2, y - h / 2 + 1, w + 7, h - 1);
+		g2d.fillRect(x - 2, y - h / 2 + 1, w + 4, h - 1);
 		g2d.setColor(Color.black);
 		arg.draw(g2d, x, y);
 	}
@@ -47,7 +47,7 @@ public class Parentheses extends MathExpression {
 	@Override
 	public int getWidth(Graphics2D g2d) {
 		//FontMetrics fm = g2d.getFontMetrics();
-		return arg.getWidth(g2d) + 15;
+		return arg.getWidth(g2d) + 12;
 	}
 
 }

@@ -15,11 +15,11 @@ public class Operator extends MathExpression {
 		this.op = op;
 		this.arg1 = arg1;
 		this.arg2 = arg2;
-		if (arg1 instanceof Parentheses) {
-			arg1 = ((Parentheses) arg1).getArg();
+		if (this.arg1 instanceof Parentheses) {
+			this.arg1 = ((Parentheses) this.arg1).getArg();
 		}
-		if (arg2 instanceof Parentheses) {
-			arg2 = ((Parentheses) arg2).getArg();
+		if (this.arg2 instanceof Parentheses) {
+			this.arg2 = ((Parentheses) this.arg2).getArg();
 		}
 	}
 	

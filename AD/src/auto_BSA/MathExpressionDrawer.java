@@ -2,6 +2,8 @@ package auto_BSA;
 
 import java.awt.Graphics2D;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MathExpressionDrawer
 {
@@ -25,11 +27,12 @@ public class MathExpressionDrawer
         variables.put(variableName, variableValue);
     }
 
-    public static Double getVariable(String variableName)
+    public static Double getVariable(String variableName) throws Exception
     {
         if (!variables.containsKey(variableName)) {
             System.err.println( "Error: Try get unexists variable '"+variableName+"'" );
-            return 0.0;
+            throw new Exception();
+            // return 0.0;
         }
         return variables.get(variableName);
     }
@@ -41,6 +44,7 @@ public class MathExpressionDrawer
         if (!MathExpression.rest.isEmpty()) {
             System.err.println("Error: can't full parse");
             System.err.println("rest: " + MathExpression.rest);
+            throw new Exception();
         }
         return MathExpression;
     }
@@ -74,6 +78,7 @@ public class MathExpressionDrawer
                 r.rest = r.rest.substring(1);
             } else {
                 System.err.println("Error: not close bracket");
+                throw new Exception();
             }
             return new Parentheses(r, r.rest);
         }
@@ -98,8 +103,17 @@ public class MathExpressionDrawer
                 	MathExpression e = readArgument(r.rest);
                 	return processFunction(f, r, e);
                 } else {
-                	r = Bracket(s.substring(f.length()));
-                	return processFunction(f, r);
+                	List<MathExpression> l = new LinkedList<MathExpression>();
+                	String parseString = s.substring(f.length());
+                	do {
+                		r = readArgument(parseString);
+                		if (r.acc != "void") {
+                			l.add(r);
+                		}
+                		parseString = r.rest;
+                	} while (r.acc != "void" && !parseString.equals(""));
+                	//r = Bracket(s.substring(f.length()));
+                	return processFunction(f, l, parseString);
                 }
             } else { // иначе - это переменная
                 return new Number(f, s.substring(f.length()));
@@ -110,12 +124,14 @@ public class MathExpressionDrawer
 
     private static MathExpression readArgument(String s) throws Exception {
     	char zeroChar = s.charAt(0);
+    	/*
         if (zeroChar == '(') {
             MathExpression r = PlusMinus(s.substring(1));
             if (!r.rest.isEmpty() && r.rest.charAt(0) == ',') {
                 //r.rest = r.rest.substring(1);
             } else {
                 System.err.println("Error: not close bracket");
+                throw new Exception();
             }
             return new Parentheses(r, r.rest);
         }
@@ -125,10 +141,29 @@ public class MathExpressionDrawer
                 r.rest = r.rest.substring(1);
             } else {
                 System.err.println("Error: not close bracket");
+                throw new Exception();
             }
             return new Parentheses(r, r.rest);
+        } //*/
+    	// there are no arguments
+    	if (zeroChar == '(' && s.charAt(1) == ')') {
+    		return new Number("void", s.substring(2));
+    	}
+        if (zeroChar == '(' || zeroChar == ',') {
+            MathExpression r = PlusMinus(s.substring(1));
+            if (!r.rest.isEmpty() && (r.rest.charAt(0) == ')' || r.rest.charAt(0) == ',')) {
+                if (r.rest.charAt(0) == ')') {
+                	r.rest = r.rest.substring(1);
+                }
+            } else {
+                System.err.println("Error: not close bracket");
+                throw new Exception();
+            }
+            return r;
+        } else {
+        	return new Number("void", s);
         }
-        return FunctionVariable(s);
+        //return FunctionVariable(s);
 	}
 
 	private static MathExpression MulDiv(String s) throws Exception
@@ -199,6 +234,7 @@ public class MathExpressionDrawer
             return new MathExpression(Math.tan(Math.toRadians(r.acc)), r.rest);
         } else {
             System.err.println("function '" + func + "' is not defined");
+            throw new Exception();
         }
         return r;*/
     	// remove 2 Parentheses
@@ -217,4 +253,8 @@ public class MathExpressionDrawer
     	}
     	return new MathFunction(func, r, e, e.rest);
     }
+    
+    private static MathExpression processFunction(String func, List<MathExpression> list, String rest) {
+    	return new MathFunction(func, list, rest);
+	}
 } 

@@ -37,6 +37,9 @@ if (x != 0) {
            ));
     ShowMessage(FloatToStr(ans));
 }
+z = pow(sin(x)-pow(y,(3+20)/9), 2);
+z = ((1+2)/(3+4));
+z = calculate(1/2, 1) + 1/2.;
 }
 //---------------------------------------------------------------------------
 
@@ -50,7 +53,9 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 double a = StrToFloat(Edit3->Text);
 double b = StrToFloat(Edit4->Text);
 double c = StrToFloat(Edit5->Text);
-double ans = arifm((a + b) / (a - c * b), b * b - 2 * a, 3 * pow(c, a - b)) -
+z = calculate(1, 2)+1/2.;
+z = f() + fabs(pow(3/2.,3/2.));
+double ans = arifm((a + b) / (a - c * b), b * b - 2 * a * c, 3 * pow(c, a - b)) -
              arifm((c + a) / (a * b), sqrt(b) / pow(a, 1. / 3), pow(a, b + 1. / c));
 ShowMessage(FloatToStr(ans));
 }
