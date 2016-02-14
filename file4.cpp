@@ -54,7 +54,10 @@ double a = StrToFloat(Edit3->Text);
 double b = StrToFloat(Edit4->Text);
 double c = StrToFloat(Edit5->Text);
 z = calculate(1, 2)+1/2.;
-z = f() + fabs(pow(3/2.,3/2.));
+z = f() + fabs(pow(x - sin(y),1/3.));
+z = fabs(pow(y+9/5.+f(1, 2),1/3.));
+z = func(a(1/2.,1/2.),3);
+z=mas[i+2]+1/2.;
 double ans = arifm((a + b) / (a - c * b), b * b - 2 * a * c, 3 * pow(c, a - b)) -
              arifm((c + a) / (a * b), sqrt(b) / pow(a, 1. / 3), pow(a, b + 1. / c));
 ShowMessage(FloatToStr(ans));

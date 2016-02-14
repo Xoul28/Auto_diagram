@@ -101,6 +101,11 @@ public class MathExpressionDrawer
             	if (f.equals("pow")) {
                 	r = readArgument(s.substring(f.length()));
                 	MathExpression e = readArgument(r.rest);
+                	MathExpression voidArg = readArgument(e.rest);
+                	if (!voidArg.acc.equals("void")) {
+                		throw new Exception("pow function has only 2 args, more taken");
+                	}
+                	e.rest = voidArg.rest;
                 	return processFunction(f, r, e);
                 } else {
                 	List<MathExpression> l = new LinkedList<MathExpression>();
@@ -123,46 +128,53 @@ public class MathExpressionDrawer
     }
 
     private static MathExpression readArgument(String s) throws Exception {
-    	char zeroChar = s.charAt(0);
-    	/*
-        if (zeroChar == '(') {
-            MathExpression r = PlusMinus(s.substring(1));
-            if (!r.rest.isEmpty() && r.rest.charAt(0) == ',') {
-                //r.rest = r.rest.substring(1);
-            } else {
-                System.err.println("Error: not close bracket");
-                throw new Exception();
-            }
-            return new Parentheses(r, r.rest);
-        }
-        if (zeroChar == ',') {
-            MathExpression r = PlusMinus(s.substring(1));
-            if (!r.rest.isEmpty() && r.rest.charAt(0) == ')') {
-                r.rest = r.rest.substring(1);
-            } else {
-                System.err.println("Error: not close bracket");
-                throw new Exception();
-            }
-            return new Parentheses(r, r.rest);
-        } //*/
-    	// there are no arguments
-    	if (zeroChar == '(' && s.charAt(1) == ')') {
-    		return new Number("void", s.substring(2));
+    	try {
+	    	char zeroChar = s.charAt(0);
+	    	/*
+	        if (zeroChar == '(') {
+	            MathExpression r = PlusMinus(s.substring(1));
+	            if (!r.rest.isEmpty() && r.rest.charAt(0) == ',') {
+	                //r.rest = r.rest.substring(1);
+	            } else {
+	                System.err.println("Error: not close bracket");
+	                throw new Exception();
+	            }
+	            return new Parentheses(r, r.rest);
+	        }
+	        if (zeroChar == ',') {
+	            MathExpression r = PlusMinus(s.substring(1));
+	            if (!r.rest.isEmpty() && r.rest.charAt(0) == ')') {
+	                r.rest = r.rest.substring(1);
+	            } else {
+	                System.err.println("Error: not close bracket");
+	                throw new Exception();
+	            }
+	            return new Parentheses(r, r.rest);
+	        } //*/
+	    	// there are no arguments
+	    	if (zeroChar == ')') {
+	    		return new Number("void", s.substring(1));
+	    	}
+	    	if (zeroChar == '(' && s.charAt(1) == ')') {
+	    		return new Number("void", s.substring(2));
+	    	}
+	        if (zeroChar == '(' || zeroChar == ',') {
+	            MathExpression r = PlusMinus(s.substring(1));
+	            if (!r.rest.isEmpty() && (r.rest.charAt(0) == ')' || r.rest.charAt(0) == ',')) {
+//	                if (r.rest.charAt(0) == ')') {
+//	                	r.rest = r.rest.substring(1);
+//	                }
+	            } else {
+	                System.err.println("Error: not close bracket");
+	                throw new Exception();
+	            }
+	            return r;
+	        } else {
+	        	return new Number("void", s);
+	        }
+    	} catch (StringIndexOutOfBoundsException e) {
+    		return new Number("void", "");
     	}
-        if (zeroChar == '(' || zeroChar == ',') {
-            MathExpression r = PlusMinus(s.substring(1));
-            if (!r.rest.isEmpty() && (r.rest.charAt(0) == ')' || r.rest.charAt(0) == ',')) {
-                if (r.rest.charAt(0) == ')') {
-                	r.rest = r.rest.substring(1);
-                }
-            } else {
-                System.err.println("Error: not close bracket");
-                throw new Exception();
-            }
-            return r;
-        } else {
-        	return new Number("void", s);
-        }
         //return FunctionVariable(s);
 	}
 
