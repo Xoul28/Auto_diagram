@@ -109,12 +109,13 @@ public abstract class Block {
 		
 	}
 	public void countingofbody(Coords Coord){
-		if(Coord.getextremeLX() < auto_BSA.Component.theleftest){
+		if(Coord.getextremeLX() < auto_BSA.Component.theleftest &&Coord.getextremeLX()>0){
 			Component.theleftest = Coord.getextremeLX();
 		}	
-		if(Coord.getX()< auto_BSA.Component.theleftest){
-			Component.theleftest = Coord.getX();
-		}if(Coord.getextremeRX() > auto_BSA.Component.therightest){
+//		if(Coord.getX()< auto_BSA.Component.theleftest &&Coord.getX()>0){
+//			Component.theleftest = Coord.getX();
+//		}
+		if(Coord.getextremeRX() > auto_BSA.Component.therightest && Coord.getextremeRX()>0){
 			Component.therightest = Coord.getextremeRX();
 		}
 		

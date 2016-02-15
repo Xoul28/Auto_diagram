@@ -2,12 +2,11 @@ package auto_BSA;
 
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Panel;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.IOException;
 
@@ -17,6 +16,7 @@ import javax.swing.JPanel;
 public class Component extends JPanel{
 	private Block function;
 	JPanel cp ;
+	static  BufferedImage image;
 	 public Component(Block function, JPanel cp) {
 		 this.function = function;
 		 this.cp = cp;
@@ -24,7 +24,7 @@ public class Component extends JPanel{
 	     this.cp.setBackground(Color.white);
 	   
 	 }
-	 	public static int theleftest = 1000000;
+	 	public static int theleftest = 100000;
 		public static int therightest = 0;
   
 	 @Override
@@ -40,16 +40,25 @@ public class Component extends JPanel{
 		 
 		 g2d.setColor(Color.BLACK);
 		 function.paint(c, g2d,true);
-		 Coords c1 = new Coords(theleftest,50);
+		 Coords c1 = new Coords(200,50);
 		// System.out.println(c.getX()-theleftest);
-		   BufferedImage image = //(BufferedImage) cp.createImage(1000, 2500);
-				   new BufferedImage(therightest-theleftest, c.getextremeDY()+50, BufferedImage.TYPE_INT_ARGB);
-		 Graphics2D g2 = image.createGraphics();
+		  image = //(BufferedImage) cp.createImage(1000, 2500);
+				   new BufferedImage(1000, c.getextremeDY()+50, BufferedImage.TYPE_INT_ARGB);
+		  g2d = image.createGraphics();
 		 
 		  
-		   g2.setColor(Color.BLACK);
-		   
-		   function.paint(c1, g2,true);
+		   Block.breakinthelaw= 1;
+		  g2d.setColor(Color.BLACK);
+		   function.paint(c1, g2d,true);
+		   int pix[] = new int[1000*image.getHeight()];
+		   PixelGrabber pg = new PixelGrabber(image, 0, 0, 1000, image.getHeight(), pix,0,1000);
+		   try {
+			pg.grabPixels();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		   /*
 		   try {
 			   Graphics2D gg = (Graphics2D)g;

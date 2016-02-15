@@ -15,7 +15,8 @@ public class Function extends FunBlock {
 
 	@Override
 	public void paint(Coords Coord, Graphics2D g2d, boolean nextlinedraw) {
-
+		
+		drawCenteredString(g2d, Main.NameOfFunc, Coord.getX(), 25);
 		g2d.drawRoundRect(Coord.getX() - 50, Coord.getY() - 12, 100, 25, 25, 25);
 		drawCenteredString(g2d, "Начало", Coord.getX(), Coord.getY());
 		Coord.setY((Coord.getY() - 12));
