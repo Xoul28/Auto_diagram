@@ -7,7 +7,7 @@ public abstract class Block {
 	public static Integer breakinthelaw = 1;
 	
 	final int HALFOFNORMALLENGHT = 50, HALFOFNORMALHIGHT = 25,
-			THEBIGGESTLENGHT = 16;
+			THEBIGGESTLENGHT = 14;
 	String line;
 
 	public Block() {
@@ -87,7 +87,6 @@ public abstract class Block {
 	}
 
 	public int isContinue() {
-
 		return 0;
 	}
 	public int isReturn(){

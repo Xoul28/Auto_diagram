@@ -72,7 +72,7 @@ public class Component extends JPanel{
 	   
 	     g2d.dispose();
 	     try {
-	          ImageIO.write(image, "png", new File("MyImg.png"));
+	          ImageIO.write(image, "png", new File(Main.NameOfFunc+".png"));
 	        }
 	        catch(IOException io) { io.printStackTrace(); 
 	        }
