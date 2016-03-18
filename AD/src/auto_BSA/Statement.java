@@ -5,12 +5,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Statement extends Block {
+	protected boolean functionCall;
 
 	public Statement(String line) {
 		this.line = line;
+		this.functionCall = false;
 	}
 
 	public Statement() {
+		this.functionCall = false;
+	}
+	
+	public Statement(String line, boolean functionCall) {
+		this(line);
+		this.functionCall = functionCall;
 	}
 
 	@Override
@@ -22,6 +30,10 @@ public class Statement extends Block {
 		 g2d.drawLine(Coord.getX()-HALFOFNORMALLENGHT, Coord.getY()+HALFOFNORMALHIGHT, Coord.getX()+HALFOFNORMALLENGHT, Coord.getY()+HALFOFNORMALHIGHT);
 		 g2d.drawLine(Coord.getX()-HALFOFNORMALLENGHT, Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()-HALFOFNORMALLENGHT, Coord.getY()+HALFOFNORMALHIGHT);
 		 g2d.drawLine(Coord.getX()+HALFOFNORMALLENGHT, Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()+HALFOFNORMALLENGHT, Coord.getY()+HALFOFNORMALHIGHT);
+		 if (functionCall) {
+			 g2d.drawLine(Coord.getX()-HALFOFNORMALLENGHT+7, Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()-HALFOFNORMALLENGHT+7, Coord.getY()+HALFOFNORMALHIGHT);
+			 g2d.drawLine(Coord.getX()+HALFOFNORMALLENGHT-7, Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()+HALFOFNORMALLENGHT-7, Coord.getY()+HALFOFNORMALHIGHT);
+		 }
 		 drawContent(Coord, g2d);
 		if (nextlinedraw) {
 			nextArrow(Coord, g2d);
@@ -50,7 +62,6 @@ public class Statement extends Block {
 					widthDecreasing = 10;
 				}
 				if (w + w2 > HALFOFNORMALLENGHT * 2 - widthDecreasing) {
-					// TODO тут создать комментарий с mathExp
 					Function.CommentList.add(new Comment(str, Coord, mathExp));
 				} else {
 					mathExp.draw(g2d, Coord.getX() - sumw / 2 + w, Coord.getY() + 1);

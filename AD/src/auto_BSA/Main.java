@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class Main {
 	static String  NameOfFunc = null;
 	public static void main(String[] args) throws FileNotFoundException {
-		NameOfFunc = args[1];
 		if (args.length == 0) {
 			System.out.println("Command line arguments:");
 			System.out.println("nameOfFileToRead nameOfFunction");
@@ -26,6 +25,7 @@ public class Main {
 			icpp.deleteComments();
 			Block[] b;
 			if (args.length > 1) {
+				NameOfFunc = args[1];
 				b = icpp.analyze(args[1]).toArray(new Block[0]);
 			} else {
 				b = icpp.analyze().toArray(new Block[0]);				

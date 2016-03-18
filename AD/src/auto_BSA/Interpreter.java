@@ -376,24 +376,26 @@ public class Interpreter {
 			}
 			nextChar(); // skip ';'
 			List<Block> blocks = new LinkedList<Block>();
+			boolean functionCall = false;
 			if (isIOBlock(statement.toString()) && flowchartMode) {
 				blocks.add(new IOBlock(toIOBlockString(statement.toString())));
+				return blocks;
 			} else if (isFunctionCall(statement.toString())) {
-				blocks.add(new FunctionCall(toFlowchartString(statement.toString())));
+				//blocks.add(new FunctionCall(toFlowchartString(statement.toString())));
+				functionCall = true;
+			}
+			String statementStr = toFlowchartString(statement.toString().trim());
+			Pattern returnStatement = Pattern.compile("^return(\\W+.*|$)");
+			Matcher matcher = returnStatement.matcher(statementStr);
+			if (statementStr.equals("break")) {
+				blocks.add(new BreakLine());
+			} else if (statementStr.equals("continue")) {
+				blocks.add(new ContinueLine());
+			} else if (matcher.matches()) {
+				// matcher.group(1).trim() is under return statement
+				blocks.add(new ReturnStatement(statementStr, functionCall));
 			} else {
-				String statementStr = toFlowchartString(statement.toString().trim());
-				Pattern returnStatement = Pattern.compile("^return(\\W+.*|$)");
-				Matcher matcher = returnStatement.matcher(statementStr);
-				if (statementStr.equals("break")) {
-					blocks.add(new BreakLine());
-				} else if (statementStr.equals("continue")) {
-					blocks.add(new ContinueLine());
-				} else if (matcher.matches()) {
-					// matcher.group(1).trim() is under return statement
-					blocks.add(new ReturnStatement(statementStr));
-				} else {
-					blocks.add(new Statement(statementStr));
-				}
+				blocks.add(new Statement(statementStr, functionCall));
 			}
 			return blocks;
 		}
@@ -467,15 +469,20 @@ public class Interpreter {
 				}
 				statement.setLength(0);
 			} else if (current == '{') { // it is a function declaration
-				nextChar(); // skip first '{'
-				List<Block> blocks = readCompoundStatement();
-				nextChar(); // skip '}'
 				List<Block> function = new LinkedList<Block>();
 				// check name of function
 				Matcher matcher = funcName.matcher(statement.toString().trim());
+				String nameOfFunction = "";
+				boolean found = false;
 				if (matcher.find()) {
-					String nameOfFunction = matcher.group(1);
+					nameOfFunction = matcher.group(1);
 					functions.add(nameOfFunction);
+					found = true;
+				}
+				nextChar(); // skip first '{'
+				List<Block> blocks = readCompoundStatement();
+				nextChar(); // skip '}'
+				if (found) {
 					if (name.equals(nameOfFunction) || name.equals("")) {
 						function.add(new Function(blocks.toArray(new Block[0]),
 									 statement.toString().trim()));
