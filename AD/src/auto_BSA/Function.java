@@ -16,9 +16,9 @@ public class Function extends FunBlock {
 	@Override
 	public void paint(Coords Coord, Graphics2D g2d, boolean nextlinedraw) {
 		
-		drawCenteredString(g2d, Main.NameOfFunc, Coord.getX(), 25);
+		drawCenteredString(g2d, line, Coord.getX(), 25);
 		g2d.drawRoundRect(Coord.getX() - 50, Coord.getY() - 12, 100, 25, 25, 25);
-		drawCenteredString(g2d, "Начало", Coord.getX(), Coord.getY());
+		drawCenteredString(g2d, "РќР°С‡Р°Р»Рѕ", Coord.getX(), Coord.getY());
 		Coord.setY((Coord.getY() - 12));
 		nextArrow(Coord, g2d);
 		Coord.setY((Coord.getY() + 70));
@@ -38,7 +38,7 @@ public class Function extends FunBlock {
 		Coord.setY(Coord.getY() + 12);
 		
 		g2d.drawRoundRect(Coord.getX() - 50, Coord.getY() - 12, 100, 25, 25, 25);
-		drawCenteredString(g2d, "Конец", Coord.getX(), Coord.getY());
+		drawCenteredString(g2d, "РљРѕРЅРµС†", Coord.getX(), Coord.getY());
 	}
 
 	private void removeComments() {

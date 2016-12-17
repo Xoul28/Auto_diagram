@@ -262,16 +262,16 @@ public class Interpreter {
 		len = code.length();
 	}
 	
-	public List<Block> analyze(String name) {
+	public List<List<Block>> analyze(String name) {
 		while (!isEnd()) {
-			List<Block> b = readFunction(name);
+			List<List<Block>> b = readFunctions(name);
 			return b;
 		}
-		List<Block> b = new LinkedList<Block>();
+		List<List<Block>> b = new LinkedList<>();
 		return b;
 	}
 	
-	public List<Block> analyze() {
+	public List<List<Block>> analyze() {
 		return analyze("");
 	}
 	
@@ -455,9 +455,10 @@ public class Interpreter {
 		return blocks;
 	}
 	
-	private List<Block> readFunction(String name) {
+	private List<List<Block>> readFunctions(String name) {
 		StringBuilder statement = new StringBuilder();
 		Pattern funcName = Pattern.compile("\\W{0,1}(\\w+)\\s*\\(");
+		List<List<Block>> funcs = new LinkedList<>();
 		while (!isEnd()) {
 			char current = getCurrentChar();
 			// it is a 'statement ... ;', not a function
@@ -484,9 +485,8 @@ public class Interpreter {
 				nextChar(); // skip '}'
 				if (found) {
 					if (name.equals(nameOfFunction) || name.equals("")) {
-						function.add(new Function(blocks.toArray(new Block[0]),
-									 statement.toString().trim()));
-						return function;
+						function.add(new Function(blocks.toArray(new Block[0]), nameOfFunction));
+						funcs.add(function);
 					}
 				}
 				statement.setLength(0);
@@ -495,11 +495,11 @@ public class Interpreter {
 			}
 			nextChar();
 		}
-		return new LinkedList<Block>();
+		return funcs;
 	}
 	
-	private List<Block> readFunction() {
-		return readFunction("");
+	private List<List<Block>> readFunctions() {
+		return readFunctions("");
 	}
 	
 }

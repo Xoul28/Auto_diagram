@@ -28,8 +28,8 @@ public class WhileCycle extends Cycles{
 		} else {
 			drawCenteredLines(g2d, line, Coord.getX(), Coord.getY());
 		}
-		g2d.drawString("да", Coord.getX()+HALFOFNORMALLENGHT-HALFOFNORMALHIGHT-17, Coord.getY()+HALFOFNORMALHIGHT+7);
-		 g2d.drawString("нет", Coord.getX()+HALFOFNORMALLENGHT-HALFOFNORMALHIGHT+30, Coord.getY()-HALFOFNORMALHIGHT+17);
+		g2d.drawString("РґР°", Coord.getX()+HALFOFNORMALLENGHT-HALFOFNORMALHIGHT-17, Coord.getY()+HALFOFNORMALHIGHT+7);
+		 g2d.drawString("РЅРµС‚", Coord.getX()+HALFOFNORMALLENGHT-HALFOFNORMALHIGHT+30, Coord.getY()-HALFOFNORMALHIGHT+17);
 
 		nextArrow(Coord, g2d);
 
@@ -40,7 +40,7 @@ public class WhileCycle extends Cycles{
 
 		Coord.setY(Coord.getY() + 50 + 20);
 		Coord.setextremeDY(Coord.getextremeDY() + 50 + 20);
-		// отрисовываем тело
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 		if (body.length != 0) {
 			drawbody(Coord, g2d);
 		} else {

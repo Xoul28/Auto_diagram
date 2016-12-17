@@ -23,8 +23,8 @@ public class SelectorBlock extends FunBlock {
 			 g2d.drawLine(Coord.getX()+HALFOFNORMALLENGHT, Coord.getY(), Coord.getX(), Coord.getY()+HALFOFNORMALHIGHT);
 			  //righttopline
 			 g2d.drawLine(Coord.getX(), Coord.getY()-HALFOFNORMALHIGHT, Coord.getX()-HALFOFNORMALLENGHT, Coord.getY());
-			 g2d.drawString("да", Coord.getX()+HALFOFNORMALLENGHT-HALFOFNORMALHIGHT-17, Coord.getY()+HALFOFNORMALHIGHT+7);
-			 g2d.drawString("нет", Coord.getX()+HALFOFNORMALLENGHT-HALFOFNORMALHIGHT+30, Coord.getY()-HALFOFNORMALHIGHT+17);
+			 g2d.drawString("РґР°", Coord.getX()+HALFOFNORMALLENGHT-HALFOFNORMALHIGHT-17, Coord.getY()+HALFOFNORMALHIGHT+7);
+			 g2d.drawString("РЅРµС‚", Coord.getX()+HALFOFNORMALLENGHT-HALFOFNORMALHIGHT+30, Coord.getY()-HALFOFNORMALHIGHT+17);
 		if (line.length() > THEBIGGESTLENGHT) {
 			Function.CommentList.add(new Comment(line, Coord));
 		} else {
@@ -32,7 +32,7 @@ public class SelectorBlock extends FunBlock {
 		}
 
 		nextArrow(Coord, g2d);
-		// запоминаем координаты возвращения
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		Coords retCoord = new Coords(Coord.getX() + 50, Coord.getY());
 
 		Coord.setY(Coord.getY() + 50 + 20);

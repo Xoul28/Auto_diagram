@@ -43,7 +43,7 @@ public class Component extends JPanel{
 		 Coords c1 = new Coords(200,50);
 		// System.out.println(c.getX()-theleftest);
 		  image = //(BufferedImage) cp.createImage(1000, 2500);
-				   new BufferedImage(1000, c.getextremeDY()+50, BufferedImage.TYPE_INT_ARGB);
+				   new BufferedImage(1000, c.getextremeDY()+400, BufferedImage.TYPE_INT_ARGB);
 		  g2d = image.createGraphics();
 		 
 		  
@@ -72,7 +72,7 @@ public class Component extends JPanel{
 	   
 	     g2d.dispose();
 	     try {
-	          ImageIO.write(image, "png", new File(Main.NameOfFunc+".png"));
+	          ImageIO.write(image, "png", new File(function.line+".png"));
 	        }
 	        catch(IOException io) { io.printStackTrace(); 
 	        }

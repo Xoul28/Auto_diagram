@@ -23,15 +23,19 @@ public class Main {
 			}
 			Interpreter icpp = new Interpreter(code.toString());
 			icpp.deleteComments();
-			Block[] b;
+			List<List<Block>> funcs;
 			if (args.length > 1) {
 				NameOfFunc = args[1];
-				b = icpp.analyze(args[1]).toArray(new Block[0]);
+				funcs = icpp.analyze(args[1]);
 			} else {
-				b = icpp.analyze().toArray(new Block[0]);				
+				funcs = icpp.analyze();
 			}
 			scanner.close();
-			new DrawerSimple(b[0]).setVisible(true);
+			for (List<Block> func : funcs) {
+				Block b[] = func.toArray(new Block[0]);
+				NameOfFunc = ((Function) b[0]).line;
+				new DrawerSimple(b[0]).setVisible(true);
+			}
 		}
 	}
 
